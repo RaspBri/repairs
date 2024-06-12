@@ -1,28 +1,81 @@
 'use server';
 
-// pass in form data
-export async function verifyZipcode() {
-// try    
-    // zipcode formData
+import { z } from "zod";
+import { db } from "@/db/db";
 
-    // Compare zipcode against servicable zip codes
+interface FormState {
+    error: {
+        zipcode?: string[];
+        _forms?: string[];
+    }
+}
 
-        // Return true or false
+const zipcodeSchema = z.object({
+    zipcode: z.string().length(5, { message: "Length must be 5" }).regex(/^\d+$/, { message: "Must be ONLY numbers" })
+});
 
-    // Compare zipcode against previously entered zipcodes
+// try/catch
+// We do have to write a check for failed db query
 
-        // If it already exists
+export async function verifyZipcode(
+    formState: FormState, 
+    formData: FormData
+) {
 
-            // Increment by 1
+    const response = zipcodeSchema.safeParse({
+        zipcode: formData.get('zipcode')
+    });
 
-        // If it doesn't exist
+    if (!response.success) {
+        return {
+            error: response.error.flatten().fieldErrors
+        }
+    }
 
-            // Create it and set it to 1
-        
-    // Respond with object { message: success }
+    try {
 
-// catch
+        // Compare zipcode against previously entered zipcodes
+        const zip = formData.get('zipcode') as string;
+        const zipcode = await db.zipcode.findUnique({
+            where: { zipcode: zip }
+        });
 
-    // Respond with object { message: error }
+        if (zipcode) {
+            // Increment the zipcode's count by 1
+            await db.zipcode.update({
+                where: { zipcode: zip },
+                data: {
+                    zipcode: formData.get('zipcode') as string,
+                    count: zipcode.count + 1
+                }
+            });
+        } else {
+            // Create the zipcode and set it to 1
+            await db.zipcode.create({
+                data: {
+                    zipcode: formData.get('zipcode') as string,
+                    count: 1
+                }
+            });
+        }
+
+        // Compare zipcode against servicable zipcodes
+
+            // If it is servicable
+
+                // redirect to servicable form
+
+            // else
+
+                // redirect to unservicable form
+
+        // revalidate admin map if zipcode count % 10
+
+    } catch (err: unknown) {
+
+    }   
     
+    return {
+        error: {}
+    }
 }

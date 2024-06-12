@@ -1,8 +1,7 @@
-import { ReactNode } from "react";
 import { NextUIProvider } from "@nextui-org/react";
 
 interface ProvidersProps {
-    children: ReactNode;
+    children: React.ReactNode;
 }
 
 export default function Providers({ children }: ProvidersProps) {
@@ -10,5 +9,5 @@ export default function Providers({ children }: ProvidersProps) {
         <NextUIProvider>
             {children}
         </NextUIProvider>
-    )
+    );
 }
