@@ -10,6 +10,4 @@ const servicableZipcodes = [
     "11111"
 ];
 
-export function isServicable(zipcode: string): boolean {
-    return servicableZipcodes.includes(zipcode);
-}
+export const isServicable = (zipcode: string): boolean => servicableZipcodes.includes(zipcode);
