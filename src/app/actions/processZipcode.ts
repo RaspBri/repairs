@@ -1,28 +1,20 @@
 'use server';
 
-import { z } from "zod";
+import { Errors } from '../types/Errors'
 import { redirect } from "next/navigation";
-import { incrementZipcode } from "./incrementZipcode";
-import { isServicable } from "./isServicable";
+import { errorMessage } from '../util/errorMessage'
+import { processZipcodeSchema } from '../util/procesZipcodeSchema'
+import { incrementZipcode } from "./incrementZipcode"
 import paths from '../paths'
+import { isServicable } from "./isServicable"
 import { isRedirectError } from "next/dist/client/components/redirect";
 
-const processZipcodeSchema = z.object({
-    zipcode: z.string().min(5, { message: "Please enter a valid zipcode (Length of 5)" }).regex(/^\d+$/, { message: 'Must be a valid zipcode (Numbers 0-9)' }),
-});
-
-interface ProcessZipcodeFormState {
-    errors: {
-        zipcode?: string[];
-        _form?: string[];
-    }
-}
+type ProcessZipcodeFormState = Errors
 
 export async function processZipcode(
     formState: ProcessZipcodeFormState,
     formData: FormData
 ): Promise<ProcessZipcodeFormState> {
-
     const result = processZipcodeSchema.safeParse({
         zipcode: formData.get('zipcode')
     });
@@ -34,17 +26,11 @@ export async function processZipcode(
     }
 
     try {
-
         const zip = formData.get('zipcode') as string;
-
         const increment = incrementZipcode(zip);
 
         if (!increment) {
-            return {
-                errors: {
-                    _form: ["Failed to increment zipcode"]
-                }
-            }
+            return errorMessage({ _form: ["Failed to increment zipcode"] })
         }
 
         // revalidate admin map if zipcode count % 100
@@ -55,17 +41,9 @@ export async function processZipcode(
         if (isRedirectError(err)) {
             throw err;
         } else if (err instanceof Error) {
-            return {
-                errors: {
-                    _form: [err.message]
-                }
-            }
+            return errorMessage({ _form: [err.message] })
         } else {
-            return {
-                errors: {
-                    _form: ['Something went wrong']
-                }
-            }
+            return errorMessage({ _form: ['Something went wrong'] })
         }
     }
 }
