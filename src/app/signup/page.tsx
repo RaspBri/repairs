@@ -5,16 +5,10 @@ import { useSearchParams } from 'next/navigation';
 import EmailSignup from './EmailSignup';
 import AppointmentSignup from './AppointmentSignup';
 
-interface SignupProps {
-    params: {
-        servicable_form: boolean;
-    }
-}
-
-export default function Signup({ params }: SignupProps) {
-    const searchParams = useSearchParams()
+export default function Signup() {
+    const searchParams = useSearchParams();
     
-    const servicable = searchParams.get('servicable_form')
+    const servicable = searchParams.get('servicable_form');
     
     return (
         <div>
