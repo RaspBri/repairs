@@ -35,19 +35,8 @@ export async function processZipcode(
 
         // revalidate admin map if zipcode count % 100
 
-        // Compare zipcode against servicable zipcodes
-        const servicable = isServicable(zip);
+        redirect(`${paths.signup()}?servicable_form=${isServicable(zip)}`);
 
-        // // If it is servicable
-        // if (servicable) {
-        //     // redirect to servicable form
-        //     return errorMessage({ zipcode: ["Redirect to signup form"] })
-        // }
-
-        // // redirect to unservicable form
-        // return errorMessage({ zipcode: ["Redirect to lead form"] })
-
-        redirect(`${paths.signup()}?servicable_form=${servicable}`);
     } catch (err: unknown) {
         if (isRedirectError(err)) {
             throw err;
