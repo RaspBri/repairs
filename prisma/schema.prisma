@@ -15,3 +15,9 @@ model Zipcode {
   zipcode   String   @unique
   count     Int
 }
+
+model Customer {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?  
+}

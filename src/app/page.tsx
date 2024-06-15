@@ -18,7 +18,8 @@ export default function Home() {
       <Input 
         name="zipcode"
         maxLength={5} 
-        isRequired type="text" 
+        isRequired 
+        type="text" 
         placeholder="Enter your zipcode"
         isInvalid={!!formState.errors.zipcode}
         errorMessage={formState.errors.zipcode?.join(', ')}
