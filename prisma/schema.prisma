@@ -17,7 +17,55 @@ model Zipcode {
 }
 
 model Customer {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?  
+  id           String   @id @default(cuid())
+  email        String   @unique
+  firstName    String? 
+  lastName     String? 
+  phonenumber  String?
+  address      Address?
+  appointments Appointment[] 
+}
+
+model Address {
+  id                 String    @id @default(cuid())
+  address_line_1     String
+  address_line_2     String
+  city               String
+  state              String
+  zipcode            String
+  customerId         String    @unique
+  customer           Customer  @relation(fields: [customerId], references: [id])
+}
+
+model Diagnosis {
+  id             String    @id @default(cuid())
+  deviceType     String
+  deviceMake     String
+  deviceModel    String
+  serialNumber   String
+  questions      Question[]
+  order          Order?
+}
+
+model Question {
+  id             String    @id @default(cuid())
+  issue_type     String
+  question       String
+  answer         String
+  problem        Boolean
+  diagnosisId    String    @unique
+  diagnosis      Diagnosis @relation(fields: [diagnosisId], references: [id])
+}
+
+model Appointment {
+  id         String   @id @default(cuid())
+  date       DateTime
+  customerId String   @unique
+  customer   Customer @relation(fields: [customerId], references: [id])
+}
+
+model Order {
+  id           String    @id @default(cuid())
+  diagnosisId  String    @unique
+  diagnosis    Diagnosis @relation(fields: [diagnosisId], references: [id])
 }
