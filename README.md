@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a Repair project.
 
 ## Getting Started
 
-First, run the development server:
+First, install all dependencies:
+
+```bash
+npm install
+```
+
+Then run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Debugging
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+#### Debugging with VS Code
+
+Create a file named `.vscode/launch.json` at the root of your project with the following content:
+
+```json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Repair: debug server-side",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run dev"
+    },
+    {
+      "name": "Repair: debug client-side",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000"
+    },
+    {
+      "name": "Repair: debug full stack",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run dev",
+      "serverReadyAction": {
+        "pattern": "- Local:.+(https?://.+)",
+        "uriFormat": "%s",
+        "action": "debugWithChrome"
+      }
+    }
+  ]
+}
+```
+
+Now go to the Debug panel (Ctrl+Shift+D on Windows/Linux, ⇧+⌘+D on macOS), select a launch configuration, then press F5 or select Debug: Start Debugging from the Command Palette to start your debugging session.
+
+> Note: For `Repair: debug client-side` configuration you need to run `npm run dev` prio to a launch of this configuration.
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+To learn more about Repair, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Project system design schema](https://lucid.app/lucidchart/eaf7af53-d0dc-4af1-8dbe-56b2f839225a/edit?viewport_loc=-1697%2C-508%2C3345%2C1996%2C0_0&invitationId=inv_809c0783-5a80-448b-895b-2602dcaa7604) - learn about our project's features and structure.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Feel free to [create an issue](https://github.com/O1SoftwareNetwork/repairs/issues/new) in case you see one.
 
-## Deploy on Vercel
+## How to contribute
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+In order to contribute:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. [Fork current repository](https://github.com/O1SoftwareNetwork/repairs/fork).
+2. Clone your fork with `git clone [your-clone-repo-url]`. In order to get an url you need click on the `<> Code` button, and then copy needed link.
+   Be sure that you clone **your fork**, not the original repository.
+3. Add `O1SoftwareNetwork/repairs` repo as your remote - `git remote add upstream git@github.com:O1SoftwareNetwork/repairs.git`. After that, you can update your fork with the main repo easily with `git pull upstream`.
+4. Create a new feature branch (e.g. `fix/signup` or `add/assignment-page`) - `git checkout -b fix/signup`.
+5. After your job is done, commit and push your code into your repo feature branch - `git push origin fix/signup`. Make sure to push only to your forked repo.
+6. Create a pull request **from your fork repo** from your feature branch into master branch of [the main project repo](https://github.com/O1SoftwareNetwork/repairs).
