@@ -11,31 +11,10 @@ const unitedStates = [
 ];
 
 export default function ContactInformation() {
-    const form = useContext(FormContext);
+    const { form, onFormChange } = useContext(FormContext);
     const [formState, action] = useFormState(submitSignup, {
         errors: {}
     });
-
-    form.diagnosis.deviceType = "Dyson";
-      
-    // const [customer, setCustomer] = useState({
-    //     email: "",
-    //     firstName: "",
-    //     lastName: "",
-    //     phone: "",
-    //     line_1: "",
-    //     line_2: "",
-    //     city: "",
-    //     state: "",
-    //     zipcode: ""
-    // });
-    
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const {name, value} = e.target;
-        console.log(name, value);
-        setForm({...customer, [name]: value})
-    }
 
     return (
         <div>
@@ -44,17 +23,14 @@ export default function ContactInformation() {
             <form className="flex flex-col gap-4">
                 <h2>Contact Information</h2>
                 <Input
-                    value={customer.email}
+                    value={form.contact.email}
                     name="email"
                     type="text"
                     label="Email"
                     maxLength={50}
                     isRequired 
                     placeholder="johndoe@gmail.com"
-                    onChange={handleChange}
-                    // startContent={
-                    //     <MailIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
-                    // }
+                    onChange={onFormChange}
                 />
                 <Input 
                     type="text" 
@@ -62,9 +38,9 @@ export default function ContactInformation() {
                     label="First Name"
                     maxLength={20}
                     isRequired 
-                    value={customer.address.line_1}
+                    value={form.contact.firstName}
                     placeholder="John Doe"
-                    onChange={handleChange}
+                    onChange={onFormChange}
                 />
                 <Input 
                     type="text" 
@@ -72,9 +48,9 @@ export default function ContactInformation() {
                     name="Last Name"
                     maxLength={20}
                     isRequired 
-                    value={customer.address.line_1}
+                    value={form.contact.lastName}
                     placeholder="John Doe"
-                    onChange={handleChange} 
+                    onChange={onFormChange} 
                 />
                 <h2>Address</h2>
                 <Input 
@@ -82,30 +58,33 @@ export default function ContactInformation() {
                     label="Address Line 1"
                     maxLength={100}
                     isRequired 
-                    value={customer.address.line_1}
+                    value={form.contact.address_line_1}
                     placeholder="123 Main Street"
-                    onChange={handleChange} 
+                    onChange={onFormChange} 
                 />
                 <Input 
                     type="text" 
                     label="Address Line 2"
                     maxLength={100}
-                    value={customer.address.line_2}
+                    value={form.contact.address_line_2}
                     placeholder="e.g. Unit 34"
-                    onChange={handleChange}
+                    onChange={onFormChange}
                 />
                 <Input 
                     type="text" 
                     label="City"
                     maxLength={50}
                     isRequired 
-                    value={customer.address.city}
+                    value={form.contact.city}
                     placeholder="New York"
-                    onChange={handleChange} 
+                    onChange={onFormChange} 
                 />
                 <Select 
                     label="Select a State" 
-                    className="max-w-xs" 
+                    className="max-w-xs"
+                    value={form.contact.state}
+                    name="state"
+                    onChange={onFormChange}
                 >
                     {unitedStates.map((usState) => (
                         <SelectItem key={usState}>
@@ -119,9 +98,9 @@ export default function ContactInformation() {
                     maxLength={5} 
                     isRequired 
                     type="text"
-                    value={customer.address.zipcode} 
+                    value={form.contact.zipcode}
                     placeholder="43125"
-                    onChange={handleChange}
+                    onChange={onFormChange}
                     // isInvalid={!!formState.errors.zipcode}
                     // errorMessage={formState.errors.zipcode?.join(', ')}
                 />
