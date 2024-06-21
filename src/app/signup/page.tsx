@@ -2,17 +2,15 @@
 
 import { useSearchParams } from 'next/navigation';
 
-import EmailSignup from './EmailSignup';
 import AppointmentSignup from './AppointmentSignup';
+import EmailSignup from './EmailSignup';
 
 export default function Signup() {
     const searchParams = useSearchParams();
     
-    const servicable = searchParams.get('servicable_form');
+    const servicable = searchParams.get('servicable_form') === "true" ? <AppointmentSignup /> : <EmailSignup />;
     
     return (
-        <div>
-            { servicable ? <AppointmentSignup /> : <EmailSignup /> }
-        </div>
+        <div>{servicable}</div>
     );
 }

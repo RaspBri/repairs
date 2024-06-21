@@ -1,7 +1,9 @@
+
+
 export default function ScheduleAppointment() {
     return (
         <div>
-            <h1>Schedule appointment</h1>
+            <h1>Schedule Appointment</h1>
         </div>
     )
 }

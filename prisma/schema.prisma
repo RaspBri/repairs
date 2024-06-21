@@ -17,24 +17,17 @@ model Zipcode {
 }
 
 model Customer {
-  id           String   @id @default(cuid())
-  email        String   @unique
-  firstName    String? 
-  lastName     String? 
-  phonenumber  String?
-  address      Address?
-  appointments Appointment[] 
-}
-
-model Address {
-  id                 String    @id @default(cuid())
-  address_line_1     String
-  address_line_2     String
-  city               String
-  state              String
-  zipcode            String
-  customerId         String    @unique
-  customer           Customer  @relation(fields: [customerId], references: [id])
+  id               String   @id @default(cuid())
+  email            String   @unique
+  firstName        String? 
+  lastName         String? 
+  phone            String? 
+  address_line_1   String
+  address_line_2   String
+  city             String
+  state            String
+  zipcode          String
+  appointments     Appointment[]
 }
 
 model Diagnosis {
