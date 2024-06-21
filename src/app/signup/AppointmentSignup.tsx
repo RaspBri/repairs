@@ -95,7 +95,6 @@ export default function AppointmentSignup() {
 
     const onFormChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
         const { name, value } = 'target' in e ? e.target : e;
-        console.log(e);
         switch(appointmentFormState) {
             case AppointmentFormState.DIAGNOSIS:
                 updateForm('diagnosis', name, value);
