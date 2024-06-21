@@ -1,7 +1,7 @@
 'use client';
 
-import EmailSignup from './EmailSignup';
-import AppointmentSignup from './AppointmentSignup';
+import EmailSignup from './UnservicableSignup';
+import AppointmentSignup from './ServicableSignup';
 import { ServiceableParams } from '../util/ServiceableForm';
 
 const ServiceableMap = {

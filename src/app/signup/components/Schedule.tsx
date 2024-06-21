@@ -5,5 +5,5 @@ export default function ScheduleAppointment() {
         <div>
             <h1>Schedule Appointment</h1>
         </div>
-    )
+    );
 }

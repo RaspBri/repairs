@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { Input, Select, SelectItem } from "@nextui-org/react";
 import { useFormState } from "react-dom";
 import { submitSignup } from "../actions/submitSignup";
-import { FormContext } from "./AppointmentSignup";
+import { FormContext } from "./ServicableSignup";
 
 const unitedStates = [
     "AB",
@@ -52,7 +52,6 @@ export default function ContactInformation() {
                     placeholder="John Doe"
                     onChange={onFormChange} 
                 />
-                <h2>Address</h2>
                 <Input 
                     type="text" 
                     label="Address Line 1"

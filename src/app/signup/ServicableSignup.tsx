@@ -1,7 +1,7 @@
 import { useState, useContext, createContext, Dispatch } from "react";
-import Diagnosis from "./Diagnosis";
-import ScheduleAppointment from "./ScheduleAppointment";
-import ContactInformation from "./ContactInformation";
+import Diagnosis from "./components/Diagnosis";
+import Schedule from './components/Schedule';
+import Contact from './components/Contact';
 
 enum AppointmentFormState {
     DIAGNOSIS,
@@ -114,10 +114,10 @@ export default function AppointmentSignup() {
             formUI = <Diagnosis />;
             break;
         case AppointmentFormState.SCHEDULE:
-            formUI = <ScheduleAppointment />;
+            formUI = <Schedule />;
             break;
         case AppointmentFormState.CONTACT:
-            formUI = <ContactInformation />;
+            formUI = <Contact />;
             break;
     }          
 
