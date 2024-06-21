@@ -1,16 +1,24 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
-
-import AppointmentSignup from './AppointmentSignup';
 import EmailSignup from './EmailSignup';
+import AppointmentSignup from './AppointmentSignup';
+import { ServiceableParams } from '../util/ServiceableForm';
 
-export default function Signup() {
-    const searchParams = useSearchParams();
-    
-    const servicable = searchParams.get('servicable_form') === "true" ? <AppointmentSignup /> : <EmailSignup />;
-    
+const ServiceableMap = {
+    [ServiceableParams.Serviceable]: <AppointmentSignup />,
+    [ServiceableParams.NonServiceable]: <EmailSignup />
+};
+
+type SignupPageParams = {
+    searchParams: {
+        type: ServiceableParams;
+    }
+}
+
+export default function Signup({searchParams}: SignupPageParams) { 
     return (
-        <div>{servicable}</div>
+        <div>
+            {ServiceableMap[searchParams.type]}
+        </div>
     );
 }
