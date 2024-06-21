@@ -35,7 +35,7 @@ export async function processZipcode(
 
         // revalidate admin map if zipcode count % 100
 
-        redirect(`${paths.signup()}?servicable_form=${isServicable(zip)}`);
+        redirect(`${paths.signup()}?type=${isServicable(zip)}`);
 
     } catch (err: unknown) {
         if (isRedirectError(err)) {

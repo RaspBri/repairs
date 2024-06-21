@@ -1,3 +1,5 @@
+import { ServiceableParams } from "../util/ServiceableForm";
+
 const servicableZipcodes = [
     "55555",
     "66666",
@@ -10,4 +12,6 @@ const servicableZipcodes = [
     "11111"
 ];
 
-export const isServicable = (zipcode: string): boolean => servicableZipcodes.includes(zipcode);
+export const isServicable = (zipcode: string): ServiceableParams => {
+    return servicableZipcodes.includes(zipcode) ? ServiceableParams.Serviceable : ServiceableParams.NonServiceable;
+};
