@@ -1,8 +1,8 @@
 import { useState, useContext } from "react";
 import { Input, Select, SelectItem } from "@nextui-org/react";
 import { useFormState } from "react-dom";
-import { submitSignup } from "../actions/submitSignup";
-import { FormContext } from "./ServicableSignup";
+import { submitSignup } from "@/app/actions/submitSignup";
+import { FormContext } from "../ServicableSignup";
 
 const unitedStates = [
     "AB",

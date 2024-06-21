@@ -1,7 +1,8 @@
-import { useState, useContext, createContext, Dispatch } from "react";
+import { useState, createContext } from "react";
 import Diagnosis from "./components/Diagnosis";
 import Schedule from './components/Schedule';
 import Contact from './components/Contact';
+import { Button } from "@nextui-org/react";
 
 enum AppointmentFormState {
     DIAGNOSIS,
@@ -131,8 +132,8 @@ export default function AppointmentSignup() {
                 {formUI}
             </FormContext.Provider>
             <div>
-                <button onClick={handleBack}>Go Back</button>
-                <button onClick={handleForward}>Next</button>
+                <Button color="primary" onClick={handleBack}>Go Back</Button>
+                <Button color="primary" onClick={handleForward}>Next</Button>
             </div>
         </div>
     );
