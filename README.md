@@ -1,4 +1,22 @@
-This is a Repair project.
+This project has three major components
+
+1. Admin
+2. Repair Technicians
+3. Customers
+
+# Admin Perspective
+
+# Technician Perspective
+
+This project provides infrastructore to repair technicians to service local business.
+
+This project aims to provide an opportunity for entry-level repair technicians to advance their skills through real-world repairs and make money while their growing professionally. 
+
+They begin with the simplest of all repairs, appliances like vacuum cleaners. Moving to washers, dryers, stoves, television sets, and advance ultimately to computers of all kinds (laptops, desktops, mobile phones, smart watches, other IoT, etc.). This project aims to systematically provide the opportunity for repair technicians to advance their skills and grow as professionals.
+
+Naturally, when the number of people with a skill increases, competition increases, and in this case, people begin to see that this is a viable option. The number of people who are willing to use this service increases, increasing our market share by differentiating our service and providing more value for less money.
+
+# Customer Perspective
 
 ## Getting Started
 
