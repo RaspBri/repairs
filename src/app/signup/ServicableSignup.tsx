@@ -3,6 +3,7 @@ import Diagnosis from "./components/Diagnosis";
 import Schedule from './components/Schedule';
 import Contact from './components/Contact';
 import { Button } from "@nextui-org/react";
+import { submitSignup } from "@/app/actions/submitSignup";
 
 enum AppointmentFormState {
     DIAGNOSIS,
@@ -126,14 +127,32 @@ export default function AppointmentSignup() {
 
     const handleBack = () => (appointmentFormState >= 1) && setAppointmentFormState(appointmentFormState - 1);
 
+    function isFormPastInitialState(appointmentFormState: number) {
+        return (appointmentFormState >= 1) ? true : false;  
+    }
+
+    function isFormInFinalState(appointmentFormState: number){
+        return (appointmentFormState === 2) ? true : false;
+    }
+
     return (
         <div className="max-w-lg m-auto my-20">
             <FormContext.Provider value={{ form, onFormChange }}>
                 {formUI}
             </FormContext.Provider>
             <div>
-                <Button color="primary" onClick={handleBack}>Go Back</Button>
-                <Button color="primary" onClick={handleForward}>Next</Button>
+                {
+                    isFormPastInitialState(appointmentFormState) && 
+                    <Button color="primary" onClick={handleBack}>
+                        Go Back
+                    </Button>
+                }
+                {
+                    !isFormInFinalState(appointmentFormState) &&
+                    <Button color="primary" onClick={handleForward}>
+                        Next
+                    </Button>
+                }
             </div>
         </div>
     );
