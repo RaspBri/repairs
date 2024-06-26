@@ -10,6 +10,18 @@ enum AppointmentFormState {
     CONTACT
 }
 
+const AppointmentFormStateToComponentMap = {
+    [AppointmentFormState.DIAGNOSIS]: <Diagnosis />,
+    [AppointmentFormState.SCHEDULE]: <Schedule />,
+    [AppointmentFormState.CONTACT]: <Contact />
+};
+
+const AppointmentFormStateToSignupFormMap: { [key in AppointmentFormState]: keyof SignupForm } = {
+    [AppointmentFormState.DIAGNOSIS]: 'diagnosis',
+    [AppointmentFormState.SCHEDULE]: 'schedule',
+    [AppointmentFormState.CONTACT]: 'contact'
+};
+
 type Question = {}
 
 type DiagnosisForm = {
@@ -83,53 +95,30 @@ export const FormContext = createContext<FormContextType>({
 export default function AppointmentSignup() {
     const [appointmentFormState, setAppointmentFormState] = useState<AppointmentFormState>(AppointmentFormState.DIAGNOSIS);
     const [form, setForm] = useState(new Signup());
-    
-    const updateForm = (section: keyof SignupForm, name: string, value: string) => {
+
+    const onFormChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
+        const { name, value } = 'target' in e ? e.target : e;
+        updateForm(name, value);
+    }
+
+    const updateForm = (name: string, value: string) => {
         setForm(prevForm => ({
             ...prevForm,
-            [section]: {
-                ...prevForm[section],
+            [AppointmentFormStateToSignupFormMap[appointmentFormState]]: {
+                ...prevForm[AppointmentFormStateToSignupFormMap[appointmentFormState]],
                 [name]: value
             }
         }));
     }
 
-    const onFormChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
-        const { name, value } = 'target' in e ? e.target : e;
-        switch(appointmentFormState) {
-            case AppointmentFormState.DIAGNOSIS:
-                updateForm('diagnosis', name, value);
-                break;
-            case AppointmentFormState.SCHEDULE:
-                updateForm('schedule', name, value);
-                break;
-            case AppointmentFormState.CONTACT:
-                updateForm('contact', name, value);
-                break;
-        }
-    }
-
-    let formUI: React.ReactNode;
-    switch(appointmentFormState) {
-        case AppointmentFormState.DIAGNOSIS:
-            formUI = <Diagnosis />;
-            break;
-        case AppointmentFormState.SCHEDULE:
-            formUI = <Schedule />;
-            break;
-        case AppointmentFormState.CONTACT:
-            formUI = <Contact />;
-            break;
-    }          
+    const handleBack = () => (appointmentFormState >= 1) && setAppointmentFormState(appointmentFormState - 1);
 
     const handleForward = () => (appointmentFormState <= 1) && setAppointmentFormState(appointmentFormState + 1);
-
-    const handleBack = () => (appointmentFormState >= 1) && setAppointmentFormState(appointmentFormState - 1);
 
     return (
         <div className="max-w-lg m-auto my-20">
             <FormContext.Provider value={{ form, onFormChange }}>
-                {formUI}
+                {AppointmentFormStateToComponentMap[appointmentFormState]}
             </FormContext.Provider>
             <div>
                 <Button color="primary" onClick={handleBack}>Go Back</Button>
