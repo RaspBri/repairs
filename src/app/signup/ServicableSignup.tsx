@@ -127,8 +127,9 @@ export default function AppointmentSignup() {
     }  
 
     const handleForward = () => (appointmentFormState <= AppointmentFormState.SCHEDULE) && setAppointmentFormState(appointmentFormState + 1);
-
     const handleBack = () => (appointmentFormState >= AppointmentFormState.SCHEDULE) && setAppointmentFormState(appointmentFormState - 1);
+    const backButtonRequired = appointmentFormState >= AppointmentFormState.SCHEDULE;
+    const nextOrSubmit = appointmentFormState <= AppointmentFormState.SCHEDULE;
 
     return (
         <div className="max-w-lg m-auto my-20">
@@ -137,8 +138,8 @@ export default function AppointmentSignup() {
                     {formUI}
                 </FormContext.Provider>
                 <div className={`flex ${appointmentFormState === AppointmentFormState.DIAGNOSIS ? 'justify-end' : 'justify-between'} py-3`}>
-                    {appointmentFormState >= AppointmentFormState.SCHEDULE && <Button color="primary" onClick={handleBack}>Go Back</Button>}
-                    {appointmentFormState <= AppointmentFormState.SCHEDULE ? 
+                    {backButtonRequired && <Button color="primary" onClick={handleBack}>Go Back</Button>}
+                    {nextOrSubmit ? 
                         <Button color="primary" onClick={handleForward}>Next</Button> :
                         <Button color="primary" type="submit">Submit</Button>
                     }

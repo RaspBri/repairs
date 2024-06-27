@@ -20,8 +20,6 @@ export default function ContactInformation() {
 
     return (
         <div>
-            <h1>Schedule appointment</h1>
-
             <form className="flex flex-col gap-4">
                 <h2>Contact Information</h2>
                 <Input

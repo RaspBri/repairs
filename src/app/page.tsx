@@ -16,7 +16,7 @@ export default function Home() {
     <div>
       <Card className="my-10">
         <CardHeader className="text-center">
-          <h1 className="text-5xl my-10 m-auto">Vacuum Repair</h1>
+          <h1 className="text-5xl my-10 m-auto">Mobile Appliance Repair</h1>
         </CardHeader>
         <CardBody className="flex flex-row justify-evenly">
           <Card className="w-64 h-48 p-3">
