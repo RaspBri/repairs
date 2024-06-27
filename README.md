@@ -1,8 +1,10 @@
 This project has three major components
 
-1. Admin
-2. Repair Technicians
-3. Customers
+1. Admin UI
+2. Repair Technicians UI
+3. Customers UI
+4. Next.js Server
+5. Prisma Database
 
 ![image](https://github.com/O1SoftwareNetwork/repairs/assets/123757720/a08bdc40-e7b6-466a-904e-8290071b8be8)
 
