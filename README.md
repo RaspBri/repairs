@@ -1,3 +1,5 @@
+This project aims to guide entry-level repair technicians from repairing simple devices like vacuum cleaners to repairing more complex devices like computers. We want to build a path from "never fixed anything in my life" to "able to fix anything and everything".
+
 This project currently has five major components
 
 1. Admin UI
