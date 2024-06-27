@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 import Diagnosis from "./components/Diagnosis";
 import Schedule from './components/Schedule';
 import Contact from './components/Contact';
@@ -97,6 +97,11 @@ export const FormContext = createContext<FormContextType>({
 export default function AppointmentSignup() {
     const [appointmentFormState, setAppointmentFormState] = useState<AppointmentFormState>(AppointmentFormState.DIAGNOSIS);
     const [form, setForm] = useState(new Signup());
+
+    // Just to test form updates
+    // useEffect(() => {
+    //     console.log(form);
+    // }, [form]);
 
     const onFormChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
         const { name, value } = 'target' in e ? e.target : e;
