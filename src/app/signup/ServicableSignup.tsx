@@ -98,11 +98,6 @@ export default function AppointmentSignup() {
     const [appointmentFormState, setAppointmentFormState] = useState<AppointmentFormState>(AppointmentFormState.DIAGNOSIS);
     const [form, setForm] = useState(new Signup());
 
-    // Just to test form updates
-    // useEffect(() => {
-    //     console.log(form);
-    // }, [form]);
-
     const onFormChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
         const { name, value } = 'target' in e ? e.target : e;
         updateForm(name, value);
@@ -118,19 +113,6 @@ export default function AppointmentSignup() {
         }));
     }
 
-    let formUI: React.ReactNode;
-    switch(appointmentFormState) {
-        case AppointmentFormState.DIAGNOSIS:
-            formUI = <Diagnosis />;
-            break;
-        case AppointmentFormState.SCHEDULE:
-            formUI = <Schedule />;
-            break;
-        case AppointmentFormState.CONTACT:
-            formUI = <Contact />;
-            break;
-    }  
-
     const handleForward = () => (appointmentFormState <= AppointmentFormState.SCHEDULE) && setAppointmentFormState(appointmentFormState + 1);
     const handleBack = () => (appointmentFormState >= AppointmentFormState.SCHEDULE) && setAppointmentFormState(appointmentFormState - 1);
     const backButtonRequired = appointmentFormState >= AppointmentFormState.SCHEDULE;
@@ -140,7 +122,7 @@ export default function AppointmentSignup() {
         <div className="max-w-lg m-auto my-20">
             {/* <form action={submitForm}> */}
                 <FormContext.Provider value={{ form, onFormChange }}>
-                    {formUI}
+                    {AppointmentFormStateToComponentMap[appointmentFormState]}
                 </FormContext.Provider>
                 <div className={`flex ${appointmentFormState === AppointmentFormState.DIAGNOSIS ? 'justify-end' : 'justify-between'} py-3`}>
                     {backButtonRequired && <Button color="primary" onClick={handleBack}>Go Back</Button>}
