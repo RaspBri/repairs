@@ -1,4 +1,4 @@
-This project has three major components
+This project currently has five major components
 
 1. Admin UI
 2. Repair Technicians UI
