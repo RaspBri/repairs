@@ -12,6 +12,18 @@ enum AppointmentFormState {
     CONTACT
 }
 
+const AppointmentFormStateToComponentMap = {
+    [AppointmentFormState.DIAGNOSIS]: <Diagnosis />,
+    [AppointmentFormState.SCHEDULE]: <Schedule />,
+    [AppointmentFormState.CONTACT]: <Contact />
+};
+
+const AppointmentFormStateToSignupFormMap: { [key in AppointmentFormState]: keyof SignupForm } = {
+    [AppointmentFormState.DIAGNOSIS]: 'diagnosis',
+    [AppointmentFormState.SCHEDULE]: 'schedule',
+    [AppointmentFormState.CONTACT]: 'contact'
+};
+
 type Question = {}
 
 type DiagnosisForm = {
@@ -85,30 +97,20 @@ export const FormContext = createContext<FormContextType>({
 export default function AppointmentSignup() {
     const [appointmentFormState, setAppointmentFormState] = useState<AppointmentFormState>(AppointmentFormState.DIAGNOSIS);
     const [form, setForm] = useState(new Signup());
-    
-    const updateForm = (section: keyof SignupForm, name: string, value: string) => {
-        setForm(prevForm => ({
-            ...prevForm,
-            [section]: {
-                ...prevForm[section],
-                [name]: value
-            }
-        }));
-    }
 
     const onFormChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
         const { name, value } = 'target' in e ? e.target : e;
-        switch(appointmentFormState) {
-            case AppointmentFormState.DIAGNOSIS:
-                updateForm('diagnosis', name, value);
-                break;
-            case AppointmentFormState.SCHEDULE:
-                updateForm('schedule', name, value);
-                break;
-            case AppointmentFormState.CONTACT:
-                updateForm('contact', name, value);
-                break;
-        }
+        updateForm(name, value);
+    }
+
+    const updateForm = (name: string, value: string) => {
+        setForm(prevForm => ({
+            ...prevForm,
+            [AppointmentFormStateToSignupFormMap[appointmentFormState]]: {
+                ...prevForm[AppointmentFormStateToSignupFormMap[appointmentFormState]],
+                [name]: value
+            }
+        }));
     }
 
     let formUI: React.ReactNode;
@@ -123,21 +125,14 @@ export default function AppointmentSignup() {
             formUI = <Contact />;
             break;
     }  
-    
-    // const ServiceableMap = {
-    //     [ServiceableParams.Serviceable]: <AppointmentSignup />,
-    //     [ServiceableParams.NonServiceable]: <EmailSignup />
-    // };
 
     const handleForward = () => (appointmentFormState <= AppointmentFormState.SCHEDULE) && setAppointmentFormState(appointmentFormState + 1);
 
     const handleBack = () => (appointmentFormState >= AppointmentFormState.SCHEDULE) && setAppointmentFormState(appointmentFormState - 1);
 
-    const styleFunc = () => (appointmentFormState === AppointmentFormState.DIAGNOSIS ?  'justify-end' : 'justify-between');
-
     return (
         <div className="max-w-lg m-auto my-20">
-            <form action={submitForm}>
+            {/* <form action={submitForm}> */}
                 <FormContext.Provider value={{ form, onFormChange }}>
                     {formUI}
                 </FormContext.Provider>
@@ -148,8 +143,7 @@ export default function AppointmentSignup() {
                         <Button color="primary" type="submit">Submit</Button>
                     }
                 </div>
-            </form>
-            
+            {/* </form> */}
         </div>
     );
 }

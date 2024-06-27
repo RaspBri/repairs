@@ -1,22 +1,14 @@
-This project has three major components
+This project aims to guide entry-level repair technicians from repairing simple devices like vacuum cleaners to repairing more complex devices like computers. We want to build a path from "never fixed anything in my life" to "able to fix anything and everything".
 
-1. Admin
-2. Repair Technicians
-3. Customers
+This project currently has five major components
 
-# Admin Perspective
+1. Admin UI
+2. Repair Technicians UI
+3. Customers UI
+4. Next.js Server
+5. Prisma Database
 
-# Technician Perspective
-
-This project provides infrastructore to repair technicians to service local business.
-
-This project aims to provide an opportunity for entry-level repair technicians to advance their skills through real-world repairs and make money while their growing professionally. 
-
-They begin with the simplest of all repairs, appliances like vacuum cleaners. Moving to washers, dryers, stoves, television sets, and advance ultimately to computers of all kinds (laptops, desktops, mobile phones, smart watches, other IoT, etc.). This project aims to systematically provide the opportunity for repair technicians to advance their skills and grow as professionals.
-
-Naturally, when the number of people with a skill increases, competition increases, and in this case, people begin to see that this is a viable option. The number of people who are willing to use this service increases, increasing our market share by differentiating our service and providing more value for less money.
-
-# Customer Perspective
+![image](https://github.com/O1SoftwareNetwork/repairs/assets/123757720/a08bdc40-e7b6-466a-904e-8290071b8be8)
 
 ## Getting Started
 
