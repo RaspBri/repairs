@@ -1,5 +1,3 @@
-'use client';
-
 import EmailSignup from './UnservicableSignup';
 import AppointmentSignup from './ServicableSignup';
 import { ServiceableParams } from '../util/ServiceableForm';

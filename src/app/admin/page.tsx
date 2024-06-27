@@ -1,11 +1,29 @@
-import { faker } from "@faker-js/faker";
+'use client';
 
-export default function Admin() {
+import { faker } from "@faker-js/faker";
+import {APIProvider, Map, Marker} from '@vis.gl/react-google-maps';
+// import { accessSecret } from "../actions/getGoogleSecret";
+
+export default async function Admin() {
+    // const key = await accessSecret();
+
+    // if (!key) {
+    //     return (
+    //         <div>
+    //             Cannot find key
+    //         </div>
+    //     );
+    // }
+
+    const position = {lat: 53.54992, lng: 10.00678};
+
     return (
-        <div>
-            <h1>Admin</h1>
-        </div>
-    )
+        <APIProvider apiKey={""}>
+            <Map defaultCenter={position} defaultZoom={10}>
+            <Marker position={position} />
+            </Map>
+        </APIProvider>
+    );
 }
 
 /**
@@ -24,7 +42,7 @@ export default function Admin() {
  */
 // Fill database with State/U.S. Zipcodes starting at 1
 // What's out minimum?
-// 
+//
 
 class DummyUser {
     name: string;

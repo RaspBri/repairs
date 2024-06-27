@@ -35,7 +35,6 @@ model Diagnosis {
   deviceType     String
   deviceMake     String
   deviceModel    String
-  serialNumber   String
   questions      Question[]
   order          Order?
 }

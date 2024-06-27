@@ -1,4 +1,6 @@
-import { useState, useContext } from "react";
+'use client';
+
+import { useContext } from "react";
 import { Input, Select, SelectItem } from "@nextui-org/react";
 import { useFormState } from "react-dom";
 import { submitSignup } from "@/app/actions/submitSignup";

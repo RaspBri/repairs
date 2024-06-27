@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, createContext } from "react";
 import Diagnosis from "./components/Diagnosis";
 import Schedule from './components/Schedule';
@@ -120,21 +122,34 @@ export default function AppointmentSignup() {
         case AppointmentFormState.CONTACT:
             formUI = <Contact />;
             break;
-    }          
+    }  
+    
+    // const ServiceableMap = {
+    //     [ServiceableParams.Serviceable]: <AppointmentSignup />,
+    //     [ServiceableParams.NonServiceable]: <EmailSignup />
+    // };
 
-    const handleForward = () => (appointmentFormState <= 1) && setAppointmentFormState(appointmentFormState + 1);
+    const handleForward = () => (appointmentFormState <= AppointmentFormState.SCHEDULE) && setAppointmentFormState(appointmentFormState + 1);
 
-    const handleBack = () => (appointmentFormState >= 1) && setAppointmentFormState(appointmentFormState - 1);
+    const handleBack = () => (appointmentFormState >= AppointmentFormState.SCHEDULE) && setAppointmentFormState(appointmentFormState - 1);
+
+    const styleFunc = () => (appointmentFormState === AppointmentFormState.DIAGNOSIS ?  'justify-end' : 'justify-between');
 
     return (
         <div className="max-w-lg m-auto my-20">
-            <FormContext.Provider value={{ form, onFormChange }}>
-                {formUI}
-            </FormContext.Provider>
-            <div>
-                <Button color="primary" onClick={handleBack}>Go Back</Button>
-                <Button color="primary" onClick={handleForward}>Next</Button>
-            </div>
+            <form action={submitForm}>
+                <FormContext.Provider value={{ form, onFormChange }}>
+                    {formUI}
+                </FormContext.Provider>
+                <div className={`flex ${appointmentFormState === AppointmentFormState.DIAGNOSIS ? 'justify-end' : 'justify-between'} py-3`}>
+                    {appointmentFormState >= AppointmentFormState.SCHEDULE && <Button color="primary" onClick={handleBack}>Go Back</Button>}
+                    {appointmentFormState <= AppointmentFormState.SCHEDULE ? 
+                        <Button color="primary" onClick={handleForward}>Next</Button> :
+                        <Button color="primary" type="submit">Submit</Button>
+                    }
+                </div>
+            </form>
+            
         </div>
     );
 }
