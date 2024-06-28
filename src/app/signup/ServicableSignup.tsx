@@ -12,7 +12,7 @@ enum AppointmentFormState {
     CONTACT
 }
 
-const AppointmentFormStateToComponentMap = {
+const AppointmentFormStateToComponentMap: { [key in AppointmentFormState]: React.ReactElement } = {
     [AppointmentFormState.DIAGNOSIS]: <Diagnosis />,
     [AppointmentFormState.SCHEDULE]: <Schedule />,
     [AppointmentFormState.CONTACT]: <Contact />
