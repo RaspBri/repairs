@@ -1,9 +1,6 @@
 'use client';
 
-import {Card, CardHeader, CardBody, CardFooter, Divider, Link, Image} from "@nextui-org/react";
-
 import { useFormState } from "react-dom"
-
 import { Button, Input } from "@nextui-org/react"
 import { processZipcode } from "./actions/processZipcode"
 

@@ -1,5 +1,20 @@
 'use client';
 
+/**
+ * We need to abstract all of the enums, types, maps, and classes out of this file.
+ * Please select an organizational structure that makes sense for the enums, types, maps,
+ * and classes that are related to this component. Keep them close until another component 
+ * needs them. Then, abstract further.
+ * 
+ * Lines 122 - 125 are ugly and could be written more professionally, reabable, and clean.
+ * Closely connected to lines 122- 125 are lines 136 - 140. 122- 125 represent the functions
+ * that move from one form state to another. Lines 136 - 140 are the buttons that when clicked,
+ * trigger these functions.
+ * 
+ * Overall, this code does not look easy to read or clean at all. It can be done in a way that
+ * looks better and is better understood by other developers.
+ */
+
 import { useState, createContext, useEffect } from "react";
 import Diagnosis from "./components/Diagnosis";
 import Schedule from './components/Schedule';
