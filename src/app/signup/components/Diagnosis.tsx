@@ -83,11 +83,12 @@ export default function Diagnosis() {
 
     return (
         <div>
-            <h1>Diagnosis</h1>
+            <h1 className="text-7xl text-center m-auto py-8 tracking-tightest leading-tight">Diagnosis</h1>
+            <h2 className="text-3xl text-center m-auto pb-8 tracking-tightest leading-tight">What do you need repaired?</h2>
             <Select
                 name="deviceType"
                 label="Select a Device" 
-                className="max-w-xs" 
+                className="max-w-xs mb-6"
                 onChange={onDeviceSelect}
             >
                 {devices.map((device) => (
@@ -99,7 +100,7 @@ export default function Diagnosis() {
             <Select 
                 name="deviceMake"
                 label="Select a Make" 
-                className="max-w-xs" 
+                className="max-w-xs mb-6" 
                 onChange={onMakeSelect}
             >
                 {makes.map((make) => (
@@ -111,7 +112,7 @@ export default function Diagnosis() {
             <Select 
                 name="deviceMake"
                 label="Select a Model"
-                className="max-w-xs" 
+                className="max-w-xs mb-6" 
                 onChange={onModelSelect}
             >
                 {models.map((model) => (

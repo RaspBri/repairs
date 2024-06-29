@@ -119,7 +119,7 @@ export default function AppointmentSignup() {
     const nextOrSubmit = appointmentFormState <= AppointmentFormState.SCHEDULE;
 
     return (
-        <div className="max-w-lg m-auto my-20">
+        <div className="max-w-lg">
             {/* <form action={submitForm}> */}
                 <FormContext.Provider value={{ form, onFormChange }}>
                     {AppointmentFormStateToComponentMap[appointmentFormState]}

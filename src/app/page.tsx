@@ -13,11 +13,11 @@ export default function Home() {
   });
 
   return (
-    <div >
+    <div>
       
       <h1 className="text-7xl text-center m-auto py-8 tracking-tightest leading-tight">Mobile Repair</h1>
 
-      <form action={action} className="flex my-10">
+      <form action={action} className="flex">
         <Input 
           name="zipcode"
           maxLength={5} 
