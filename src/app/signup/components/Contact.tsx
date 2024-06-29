@@ -21,7 +21,7 @@ export default function ContactInformation() {
     return (
         <div>
             <form className="flex flex-col gap-4">
-                <h2>Contact Information</h2>
+                <h1 className="text-7xl text-center m-auto py-8 tracking-tightest leading-tight">Contact</h1>
                 <Input
                     value={form.contact.email}
                     name="email"
