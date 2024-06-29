@@ -1,15 +1,12 @@
+'use client';
+
 import {
     Model, 
     Make,
     Device, 
-    getDeviceData,
-    getMakeData, 
-    getStoveMakes,
-    getDysonModels, 
-    getWasherMakes, 
-    getTVMakes, 
-    getComputerMakes, 
-    getAppleModels 
+    getDevices,
+    getMakes, 
+    getModels
 } from "@/app/actions/appliance";
 
 import { useState, useContext, useEffect } from "react";
@@ -17,69 +14,71 @@ import { useState, useContext, useEffect } from "react";
 import { Select, SelectItem } from "@nextui-org/react";
 import { FormContext } from "../ServicableSignup";
 
-/**
- * Everything below and up until the actual component is dummy data
- * 
- * An external API will be set up to fetch the device, make, and model data
- * 
- * When our external API is set up, we're going to cut all the code form the
- * following line up until the component begins. 
- */
-enum DeviceEnum {
-    NONE = "Select a Device",
-    VACUUM = "Vacuum Cleaner",
-    STOVE = "Stove",
-    WASHER = "Washer",
-    TELEVISION = "Television",
-    COMPUTER = "Computer"
-}
-
-enum MakeEnum { 
-    NONE = "Select a Make",
-    DYSON = "Dyson"
-}
-
-const selectedDeviceMap = {
-    [DeviceEnum.NONE]: [],
-    [DeviceEnum.VACUUM]: getMakeData(),
-    [DeviceEnum.STOVE]: getStoveMakes(),
-    [DeviceEnum.WASHER]: getWasherMakes(),
-    [DeviceEnum.TELEVISION]: getTVMakes(),
-    [DeviceEnum.COMPUTER]: getComputerMakes()
-}
-
-const selectedMakeMap = {
-    [MakeEnum.NONE]: [],
-    [MakeEnum.DYSON]: getDysonModels(),
-}
-
 export default function Diagnosis() {
-    const [selectedDevice, setSelectedDevice] = useState<DeviceEnum>(DeviceEnum.NONE);
-    const [selectedMake, setSelectedMake] = useState<MakeEnum>(MakeEnum.NONE);
+    const [selectedDevice, setSelectedDevice] = useState<string>("");
+    const [selectedMake, setSelectedMake] = useState<string>("");
+    const [selectedModel, setSelectedModel] = useState<string>("");
+    const [devices, setDevices] = useState<Device[]>([]);
     const [makes, setMakes] = useState<Make[]>([]);
     const [models, setModels] = useState<Model[]>([]);
-    const { form, onFormChange } = useContext(FormContext);
+    const { onFormChange } = useContext(FormContext);
 
-    const devices = getDeviceData();
-
-    const onDeviceSelect =  (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedDevice(e.target.value as DeviceEnum);
-        // const makes = await getMakes(selectedDevice);
-        setMakes(selectedDeviceMap[selectedDevice]);
+    const onDeviceSelect = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedDevice(e.target.value);
         onFormChange(e);
     }
 
     const onMakeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedMake(e.target.value as MakeEnum);
+        setSelectedMake(e.target.value);
+        onFormChange(e);
+    }
+
+    const onModelSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        // I don't think we need to set the model because at this point,
+        // the user will be ready to submit the form and the model changing
+        // doesn't effect anything else. If the model on the form is accurate,
+        // we should be good to go.
+        setSelectedModel(e.target.value);
         onFormChange(e);
     }
 
     useEffect(() => {
-        setMakes(selectedDeviceMap[selectedDevice]);
+        const fetchDevices = async () => {
+            try {
+                const devicesData = await getDevices();
+                setDevices(devicesData);
+            } catch (error) {
+                console.error("Failed to fetch DEVICES", error);
+            }
+        };
+
+        fetchDevices();
+    }, []);
+
+    useEffect(() => {
+        const fetchMakes = async () => {
+            try {
+                const makes = await getMakes(selectedDevice);
+                setMakes(makes);
+            } catch (error) {
+                console.error("Failed to fetch MAKES", error);
+            }
+        };
+
+        fetchMakes();
     }, [selectedDevice]);
 
     useEffect(() => {
-        setModels(selectedMakeMap[selectedMake]);
+        const fetchModels = async () => {
+            try {
+                const models = await getModels(selectedMake);
+                setModels(models);
+            } catch (error) {
+                console.error("Failed to fetch MODELS", error);
+            }
+        };
+
+        fetchModels();
     }, [selectedMake]);
 
     return (
@@ -92,8 +91,8 @@ export default function Diagnosis() {
                 onChange={onDeviceSelect}
             >
                 {devices.map((device) => (
-                <SelectItem key={device.name}>
-                    {device.name}
+                <SelectItem key={device.deviceId}>
+                    {device.deviceName}
                 </SelectItem>
                 ))}
             </Select>
@@ -104,8 +103,8 @@ export default function Diagnosis() {
                 onChange={onMakeSelect}
             >
                 {makes.map((make) => (
-                <SelectItem key={make.name}>
-                    {make.name}
+                <SelectItem key={make.manufacturerId}>
+                    {make.manufacturerName}
                 </SelectItem>
                 ))}
             </Select>
@@ -113,10 +112,11 @@ export default function Diagnosis() {
                 name="deviceMake"
                 label="Select a Model"
                 className="max-w-xs" 
+                onChange={onModelSelect}
             >
                 {models.map((model) => (
-                <SelectItem key={model.name}>
-                    {model.name}
+                <SelectItem key={model.modelId}>
+                    {model.modelName}
                 </SelectItem>
                 ))}
             </Select>

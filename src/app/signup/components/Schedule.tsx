@@ -1,3 +1,5 @@
+'use client';
+
 import React from "react";
 import {DateInput} from "@nextui-org/react";
 import {CalendarDate, parseDate} from "@internationalized/date";

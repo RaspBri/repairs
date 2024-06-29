@@ -1,104 +1,49 @@
+'use server';
+
 export type Device = {
-    id: number;
-    name: string;
+    deviceId: string;
+    deviceName: string;
 }
 
 export type Make = {
-    id: number;
-    name: string;
+    manufacturerId: string;
+    manufacturerName: string;
 }
 
 export type Model = {
-    id: number;
-    name: string;
+    modelId: string;
+    modelName: string;
+    manufacturerId: string;
+    deviceId: string;
+    releasedDate: string;
 }
 
-export const getDeviceData = (): Device[] => {
-    const devices = [
-        {id: 0, name: "None"},
-        {id: 1, name: "Vacuum Cleaner"}, 
-        {id: 2, name: "Stove"},
-        {id: 3, name: "Washer"},
-        {id: 4, name: "Television"},
-        {id: 5, name: "Computer"}
-    ];
+export const getDevices = async (): Promise<Device[]> => {
+    const res = await fetch("http://localhost:3001/getDevices");
 
-    return devices;
+    if (!res.ok) {
+        throw new Error("CANNOT FETCH DEVICE DATA");
+    }
+
+    return res.json();
 }
 
+export const getMakes = async (deviceId: string): Promise<Make[]> => {
+    const res = await fetch(`http://localhost:3001/getMakes/${deviceId}`);
 
+    if (!res.ok) {
+        throw new Error("CANNOT FETCH DEVICE DATA");
+    }
 
-export const getMakeData = (): Make[] => {
-    const vacuumMakes = [
-        { id: 0, name: "Dyson"},
-        { id: 1, name: "Kirby"},
-        { id: 2, name: "Riccar"}
-    ];
-
-    return vacuumMakes
+    return res.json();
 }
 
+export const getModels = async (makeId: string): Promise<Model[]> => {
+    const res = await fetch(`http://localhost:3001/getModels/${makeId}`);
 
+    if (!res.ok) {
+        throw new Error("CANNOT FETCH DEVICE DATA");
+    }
 
-export const getDysonModels = (): Model[] => {
-    const dysonModels = [
-        { id: 0, name: "Ball"},
-        { id: 1, name: "K-48"},
-        { id: 2, name: "2000"},
-    ];
-
-    return dysonModels;
+    return res.json();
 }
-
-export const getStoveMakes = (): Make[] => {
-    const stoveMakes = [
-        { id: 0, name: "Kenmore" },
-        { id: 1, name: "LG" },
-        { id: 2, name: "Sony" },
-        { id: 3, name: "Apple" },
-    ];
-
-    return stoveMakes;
-}
-
-export const getWasherMakes = (): Make[] => {
-    const washerMakes = [
-        { id: 0, name: "Samsung" },
-    ];
-
-    return washerMakes;
-}
-
-export const getTVMakes = (): Make[] => {
-    const tvMakes = [
-        { id: 0, name: "LG" },
-        { id: 1, name: "Sony" },
-    ];
-
-    return tvMakes;
-}
-
-export const getComputerMakes = (): Make[] => {
-    const computerMakes = [
-        { id: 0, name: "Apple" },
-        { id: 1, name: "Dell" },
-        { id: 2, name: "Microsoft" },
-    ];
-
-    return computerMakes;
-}
-
-export const getAppleModels = (): Model[] => {
-    const AppleModels = [
-        { id: 0, name: "iPhone" },
-    ];
-
-    return AppleModels;
-}
-
-
-
-
-
- 
-
