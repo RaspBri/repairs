@@ -34,10 +34,6 @@ export default function Diagnosis() {
     }
 
     const onModelSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        // I don't think we need to set the model because at this point,
-        // the user will be ready to submit the form and the model changing
-        // doesn't effect anything else. If the model on the form is accurate,
-        // we should be good to go.
         setSelectedModel(e.target.value);
         onFormChange(e);
     }
@@ -60,6 +56,7 @@ export default function Diagnosis() {
             try {
                 const makes = await getMakes(selectedDevice);
                 setMakes(makes);
+                setModels([]);
             } catch (error) {
                 console.error("Failed to fetch MAKES", error);
             }
