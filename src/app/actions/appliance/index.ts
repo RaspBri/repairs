@@ -5,7 +5,7 @@ export type Device = {
     deviceName: string;
 }
 
-export type Make = {
+export type Manufacturer = {
     manufacturerId: string;
     manufacturerName: string;
 }
@@ -18,7 +18,7 @@ export type Model = {
     releasedDate: string
 }
 
-const getManufacturersForDevice = (deviceId: string): Make[] => {
+const getManufacturersForDevice = (deviceId: string): Manufacturer[] => {
     const filteredModels = models.filter(model => model.deviceId === deviceId);
     const manufacturerIds = Array.from(new Set(filteredModels.map((model: Model): string => model.manufacturerId)));
 
@@ -29,8 +29,8 @@ const getManufacturersForDevice = (deviceId: string): Make[] => {
     return filteredManufacturers;
 }
 
-const getModelsByMake = (makeId: string): Model[] => {
-    const filteredModels = models.filter(model => model.manufacturerId === makeId);
+const getModelsByManufacturer = (manufacturerId: string): Model[] => {
+    const filteredModels = models.filter(model => model.manufacturerId === manufacturerId);
     return filteredModels;
 }
 
@@ -38,13 +38,13 @@ export const getDevices = (): Device[] => {
     return devices;
 }
 
-export const getMakes = (deviceId: string): Make[] => {
+export const getManufacturers = (deviceId: string): Manufacturer[] => {
     const manufacturers = getManufacturersForDevice(deviceId);
     return manufacturers;
 }
 
-export const getModels = (makeId: string): Model[] => {
-    const models = getModelsByMake(makeId);
+export const getModels = (manufacturerId: string): Model[] => {
+    const models = getModelsByManufacturer(manufacturerId);
     return models;
 }
 

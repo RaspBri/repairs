@@ -1,11 +1,19 @@
 'use client';
 
+/**
+ * This component needs to be changed to remove the device, make, and model select options
+ * 
+ * The UI has changed, so by the time a user gets to this page,
+ * they will have already selected their device, manufacturer, and model
+ * 
+ * This information will be used to determine which questions to ask
+ * during the Diagnosis stage of the form.
+ */
+
 import {
     Model, 
-    Make,
     Device, 
     getDevices,
-    getMakes, 
     getModels
 } from "@/app/actions/appliance";
 
@@ -19,7 +27,7 @@ export default function Diagnosis() {
     const [selectedMake, setSelectedMake] = useState<string>("");
     const [selectedModel, setSelectedModel] = useState<string>("");
     const [devices, setDevices] = useState<Device[]>([]);
-    const [makes, setMakes] = useState<Make[]>([]);
+    // const [makes, setMakes] = useState<Make[]>([]);
     const [models, setModels] = useState<Model[]>([]);
     const { onFormChange } = useContext(FormContext);
 
@@ -54,8 +62,8 @@ export default function Diagnosis() {
     useEffect(() => {
         const fetchMakes = async () => {
             try {
-                const makes = await getMakes(selectedDevice);
-                setMakes(makes);
+                // const makes = await getMakes(selectedDevice);
+                // setMakes(makes);
                 setModels([]);
             } catch (error) {
                 console.error("Failed to fetch MAKES", error);
@@ -94,7 +102,7 @@ export default function Diagnosis() {
                 </SelectItem>
                 ))}
             </Select>
-            <Select 
+            {/* <Select 
                 name="deviceMake"
                 label="Select a Make" 
                 className="max-w-xs mb-6" 
@@ -105,7 +113,7 @@ export default function Diagnosis() {
                     {make.manufacturerName}
                 </SelectItem>
                 ))}
-            </Select>
+            </Select> */}
             <Select 
                 name="deviceMake"
                 label="Select a Model"

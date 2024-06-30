@@ -12,6 +12,8 @@ const unitedStates = [
     "NY"
 ];
 
+// Remember to include processZipcode in submitSignup server action
+
 export default function Contact() {
     const { form, onFormChange } = useContext(FormContext);
     const [formState, action] = useFormState(submitSignup, {
@@ -93,16 +95,16 @@ export default function Contact() {
                 </Select>
                 <Input 
                     name="zipcode"
-                    label="Zip Code"
                     maxLength={5} 
                     isRequired 
-                    type="text"
-                    value={form.contact.zipcode}
-                    placeholder="43125"
-                    onChange={onFormChange}
+                    type="text" 
+                    className="mr-5"
+                    placeholder="Enter your zipcode"
                     // isInvalid={!!formState.errors.zipcode}
                     // errorMessage={formState.errors.zipcode?.join(', ')}
                 />
+
+                {/* {formState.errors._form ? <div className="rounded p-2 bg-red-200 border border-red-400">{formState.errors._form?.join(', ')}</div> : null} */}
             </form>
         </div>
     );

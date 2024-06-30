@@ -1,22 +1,13 @@
-import EmailSignup from './UnservicableSignup';
+/**
+ * We're going to create one path regardless of whether somebody is in a servicable or unservicable location
+ */
+
 import AppointmentSignup from './ServicableSignup';
-import { ServiceableParams } from '../util/ServiceableForm';
 
-const ServiceableMap = {
-    [ServiceableParams.Serviceable]: <AppointmentSignup />,
-    [ServiceableParams.NonServiceable]: <EmailSignup />
-};
-
-type SignupPageParams = {
-    searchParams: {
-        type: ServiceableParams;
-    }
-}
-
-export default function Signup({searchParams}: SignupPageParams) { 
+export default function Signup() { 
     return (
         <div>
-            {ServiceableMap[searchParams.type]}
+            <AppointmentSignup />
         </div>
     );
 }

@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { errorMessage } from '../util/errorMessage'
 import { processZipcodeSchema } from '../util/procesZipcodeSchema'
 import { incrementZipcode } from "./incrementZipcode"
-import paths from '../paths'
+import { paths } from '../paths';
 import { isServicable } from "./isServicable"
 import { isRedirectError } from "next/dist/client/components/redirect";
 
@@ -35,7 +35,7 @@ export async function processZipcode(
 
         // revalidate admin map if zipcode count % 100
 
-        redirect(`${paths.signup()}?type=${isServicable(zip)}`);
+        redirect(`${paths.signupForm()}?type=${isServicable(zip)}`);
 
     } catch (err: unknown) {
         if (isRedirectError(err)) {
