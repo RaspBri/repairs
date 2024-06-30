@@ -12,7 +12,7 @@ const unitedStates = [
     "NY"
 ];
 
-export default function ContactInformation() {
+export default function Contact() {
     const { form, onFormChange } = useContext(FormContext);
     const [formState, action] = useFormState(submitSignup, {
         errors: {}
