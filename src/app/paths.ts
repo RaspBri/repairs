@@ -2,11 +2,14 @@ export const paths = {
     home(): string {
         return "/";
     },
-    makes(deviceId: string): string {
-        return `/devices/${deviceId}/manufacturer`;
+    devices() {
+        return '/devices';
+    },
+    manufacturers(deviceId: string): string {
+        return `/devices/${deviceId}/manufacturers`;
     },
     models(deviceId: string, manufacturerId: string): string {
-        return `/devices/${deviceId}/manufacturer/${manufacturerId}/models`;
+        return `/devices/${deviceId}/manufacturers/${manufacturerId}/models`;
     },
     signupForm(): string {
         return '/signup';
