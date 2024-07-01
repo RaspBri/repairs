@@ -1,5 +1,35 @@
 import { Signup } from "../classes"
 
+/*******************************************************
+ * *****************************************************
+ * ******************* DEVICE DATA *********************
+ * *****************************************************
+ ******************************************************/
+
+export type Device = {
+    deviceId: string;
+    deviceName: string;
+}
+
+export type Manufacturer = {
+    manufacturerId: string;
+    manufacturerName: string;
+}
+
+export type Model = {
+    modelId: string;
+    modelName: string,
+    manufacturerId: string,
+    deviceId: string,
+    releasedDate: string
+}
+
+/*******************************************************
+ * *****************************************************
+ * ****************** SIGNUP FORM **********************
+ * *****************************************************
+ ******************************************************/
+
 export enum AppointmentFormState {
     DIAGNOSIS,
     SCHEDULE,
@@ -9,10 +39,9 @@ export enum AppointmentFormState {
 export type Question = {}
 
 export type DiagnosisForm = {
-    deviceType: string,
-    deviceMake: string,
-    deviceModel: string,
-    serialNumber: string,
+    device: string,
+    manufacturer: string,
+    model: string,
     questions: Question[],
 }
 

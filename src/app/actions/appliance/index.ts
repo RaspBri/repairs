@@ -1,24 +1,12 @@
 'use server';
 
+/**
+ * We need a getManufacturer function built for the Manufacturer page
+ * to display the manufacturer alongside the device on the model cards
+ */
+
 import { devices, manufacturers, models } from "./data";
-
-export type Device = {
-    deviceId: string;
-    deviceName: string;
-}
-
-export type Manufacturer = {
-    manufacturerId: string;
-    manufacturerName: string;
-}
-
-export type Model = {
-    modelId: string;
-    modelName: string,
-    manufacturerId: string,
-    deviceId: string,
-    releasedDate: string
-}
+import { Device, Manufacturer, Model } from "@/app/types";
 
 const getManufacturersForDevice = (deviceId: string): Manufacturer[] => {
     const filteredModels = models.filter(model => model.deviceId === deviceId);
