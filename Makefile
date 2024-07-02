@@ -2,7 +2,7 @@ build: docker-build
 up: docker-up
 down: docker-down
 restart: docker-down docker-up
-init: docker-down-all docker-build docker-up
+init: docker-down-all docker-build docker-up prisma-migrate
 check: lint test
 
 docker-build:
@@ -28,6 +28,9 @@ npm-remove-package:
 
 prisma-generate:
 	docker-compose run --rm repair-app npx prisma generate
+
+prisma-migrate:
+	docker-compose run --rm repair-app npx prisma migrate dev
 
 sh:
 	docker-compose exec $(c) sh

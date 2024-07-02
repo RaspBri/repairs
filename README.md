@@ -15,8 +15,9 @@ This project currently has five major components
 First, install all dependencies:
 
 1. Make sure you have [docker](https://docs.docker.com/engine/install/) and [docker-compose](https://docs.docker.com/compose/install/) installed, as well as [make](https://stackoverflow.com/a/32127632) if you use Windows (Linux and MacOS distributives have it by default).
-2. Run `make init` in order to build and start an application.
-3. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Copy `.env.example` into `.env` and rewrite it with your own credentials (could be left default ones for dev environment).
+3. Run `make init` in order to build and start an application. This should be run only once at the start and after that just manipulate `make down` and `make up`.
+4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ### Dev commands list
 
