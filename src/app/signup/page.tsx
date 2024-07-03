@@ -22,14 +22,43 @@
  * and strings. Reach out to me if you have any questions.
  */
 
-import { useState } from "react";
+import { useState, createContext } from "react";
+import { useRouter } from "next/router";
 import FormNavigation from "./components/FormNavigation";
-import { AppointmentFormState, SignupForm } from "../types";
+import { AppointmentFormState, SignupForm, FormContextType } from "../types";
 import { Signup } from "../classes";
 import Diagnosis from "./components/Diagnosis";
 import Schedule from "./components/Schedule";
 import Contact from "./components/Contact";
-import { FormContext } from "../state";
+
+export const FormContext = createContext<FormContextType>({
+    form: {
+        diagnosis: {
+            device: "",
+            manufacturer: "",
+            model: "",
+            questions: [], 
+        },   
+        schedule: {
+
+        },
+        contact: {
+            email: "",
+            firstName: "",
+            lastName: "",
+            phone: "",
+            address_line_1: "",
+            address_line_2: "",
+            city: "",
+            state: "",
+            zipcode: ""
+        }
+    },
+    onFormChange: () => {},
+    appointmentFormState: 0,
+    setAppointmentFormState: () => {},
+    updateQuestions: () => {}
+});
 
 export const AppointmentFormStateToComponentMap: { [key in AppointmentFormState]: React.ReactElement } = {
     [AppointmentFormState.DIAGNOSIS]: <Diagnosis />,
@@ -44,18 +73,18 @@ export const AppointmentFormStateToSignupFormMap: { [key in AppointmentFormState
 };
 
 export default function AppointmentSignup() {
+    const router = useRouter();
+    const { deviceId, manufacturerId, modelId } = router.query;
+    
     const [appointmentFormState, setAppointmentFormState] = useState<AppointmentFormState>(AppointmentFormState.DIAGNOSIS);
-    /******************************************************************************************
-     * Replace the static strings below with actual values being pulled from the URL parameters
-     *****************************************************************************************/
-    const [form, setForm] = useState(new Signup("deviceId", "manufacturersId", "modelId"));
+    const [form, setForm] = useState(new Signup(deviceId as string, manufacturerId as string, modelId as string));
 
     const onFormChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
         const { name, value } = 'target' in e ? e.target : e;
         updateForm(name, value);
     }
 
-    const updateForm = (name: string, value: string) => {
+    const updateForm = (name: string, value: any) => {
         setForm(prevForm => ({
             ...prevForm,
             [AppointmentFormStateToSignupFormMap[appointmentFormState]]: {
@@ -65,10 +94,20 @@ export default function AppointmentSignup() {
         }));
     }
 
+    const updateQuestions = (questions: Question[]) => {
+        setForm(prevForm => ({
+            ...prevForm,
+            diagnosis: {
+                ...prevForm.diagnosis,
+                questions
+            }
+        }));
+    }
+
     return (
         <div className="max-w-lg">
             {/* <form action={submitForm}> */}
-                <FormContext.Provider value={{ form, onFormChange, appointmentFormState, setAppointmentFormState }}>
+                <FormContext.Provider value={{ form, onFormChange, appointmentFormState, setAppointmentFormState, updateQuestions }}>
                     {AppointmentFormStateToComponentMap[appointmentFormState]}
                     <FormNavigation />
                 </FormContext.Provider>

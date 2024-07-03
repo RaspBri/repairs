@@ -1,5 +1,10 @@
 'use client';
 
+import { RadioGroup, Radio } from '@nextui-org/react';
+import { useContext, useEffect } from "react";
+import { FormContext } from "../page";
+import { Question } from "@/app/types";
+
 /**
  * This component needs to be changed to remove the device, make, and model select options
  * 
@@ -10,35 +15,49 @@
  * during the Diagnosis stage of the form.
  */
 
-import { useState, useContext, useEffect } from "react";
-import { FormContext } from "@/app/state";
-
 export default function Diagnosis() {
-    const [questions, setQuestions] = useState<Question[]>([]);
-    const { onFormChange } = useContext(FormContext);
+    const { form, onFormChange, updateQuestions } = useContext(FormContext);
+    const { diagnosis } = form;
 
-    const onChange = () => {
-
+    const handleAnswerChange = (questionId: string, answer: string): void => {
+        const updatedQuestions = diagnosis.questions.map((q) => (
+            q.id === questionId ? { ...q, answer } : q
+        ));
+        updateQuestions(updatedQuestions);
     }
 
     useEffect(() => {
         const fetchQuestions = async () => {
             try {
-                const questions = await getQuestions(deviceId);
-                setQuestions(questions);
+                const questions = await getQuestions(diagnosis.device);
+                updateQuestions(questions);
             } catch (error) {
                 console.error("Failed to fetch QUESTIONS", error);
             }
         };
 
         fetchQuestions();
-    }, []);
+    }, [diagnosis.device]);
 
     return (
         <div>
             <h1 className="text-7xl text-center m-auto py-8 tracking-tightest leading-tight">Diagnosis</h1>
             
-            {/* Render questions here */}
+            {diagnosis.questions.map((question) => (
+                <div className="question-item" key={question.id}>
+                    <RadioGroup
+                        label={question.text}
+                        value={question.answer}
+                        onChange={(e) => handleAnswerChange(question.id, e.target.value)}
+                    >
+                        {question.options.map((option) => (
+                            <Radio key={option} value={option}>
+                                {option}
+                            </Radio>
+                        ))}
+                    </RadioGroup>
+                </div>
+            ))}
         </div>
     );
 }

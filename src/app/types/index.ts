@@ -36,7 +36,12 @@ export enum AppointmentFormState {
     CONTACT
 }
 
-export type Question = {}
+export type Question = {
+    id: string;
+    text: string;
+    answer: string;
+    options: string[];
+}
 
 export type DiagnosisForm = {
     device: string,
@@ -70,4 +75,5 @@ export type FormContextType = {
     onFormChange: (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) =>  void;
     appointmentFormState: AppointmentFormState;
     setAppointmentFormState: React.Dispatch<React.SetStateAction<AppointmentFormState>>;
+    updateQuestions: (questions: Question[]) => void
 }

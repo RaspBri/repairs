@@ -38,6 +38,7 @@ export default async function Devices() {
           <Link key={device.deviceId} href={paths.manufacturers(device.deviceId)}>
             <Card className="flex flex-col justify-center p-3 h-32">
               <h2 className='text-xl text-center font-semibold'>{device.deviceName}</h2>
+              <i>i</i>
             </Card>
           </Link>
           ))}
