@@ -1,25 +1,48 @@
-This project aims to guide entry-level repair technicians from repairing simple devices like vacuum cleaners to repairing more complex devices like computers. We want to build a path from "never fixed anything in my life" to "able to fix anything and everything".
+<h1 align="center">Repair Technician Training Platform <br/></h1>
 
-This project currently has five major components
+<p align="center">A Mobile Repair Service That Trains Repair Technicians to Fix Computers While Exceeding Customer Expectations</p>
 
-1. Admin UI
-2. Repair Technicians UI
-3. Customers UI
-4. Next.js Server
-5. Prisma Database
+## Table of Contents
 
-![image](https://github.com/O1SoftwareNetwork/repairs/assets/123757720/a08bdc40-e7b6-466a-904e-8290071b8be8)
+1. [Introduction](#introduction)
+2. [Project Structure](#project-structure)
+3. [Setup Instructions](setup-instructions)
+  1. [Install Dependencies](install-dependencies)
+  2. [Dev Commands List](dev-commands-list)
+  3. [Testing](testing)
+  4. [Logs](logs)
+  5. [Debugging](debugging)
+    1. [Debugging with VS Code](debugging-with-vs-code)
+  6. [Troubleshooting](troubleshooting)
+  7. [Learn More](learn-more)
+  8. [How to Contribute](how-to-contribute)
+   
 
-## Getting Started
+## Introduction
 
-First, install all dependencies:
+This project aims to guide entry-level repair technicians from repairing simple devices like vacuum cleaners to repairing more complex devices like computers. We want to build a path from "never fixed anything in my life" to "able to fix anything and everything" while providing a high-quality, easy-to-use experience for customers
+
+## Project Structure
+
+```
+repair
+├── docker
+├── public
+├── src
+│ └── app
+│ └── db
+```
+
+## Setup Instructions
+
+### Install Dependencies
 
 1. Make sure you have [docker](https://docs.docker.com/engine/install/) and [docker-compose](https://docs.docker.com/compose/install/) installed, as well as [make](https://stackoverflow.com/a/32127632) if you use Windows (Linux and MacOS distributives have it by default).
 2. Copy `.env.example` into `.env` and rewrite it with your own credentials (could be left default ones for dev environment).
 3. Run `make init` in order to build and start an application. This should be run only once at the start and after that just manipulate `make down` and `make up`.
 4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### Dev commands list
+### Dev Commands List
 
 - `make build` - builds everything needed for development.
 - `make up` - starts all containers.
