@@ -47,6 +47,153 @@
  * this, we'll scrape the data from wikipedia: https://en.wikipedia.org/wiki/List_of_vacuum_cleaners
  */
 
+export const diagnosticQuestions = [
+    {
+        "deviceId": "D001",
+        "deviceName": "vacuum cleaner",
+        "questions": [
+            {
+                "id": "Q001",
+                "name": "PowerCheck",
+                "question": "Does the vacuum cleaner have power?",
+                "answers": ["Yes", "No"]
+            },
+            {
+                "id": "Q002",
+                "name": "CordCondition",
+                "question": "Is the vacuum cleaner's cord ripped or damaged?",
+                "answers": ["Yes", "No"]
+            },
+            {
+                "id": "Q003",
+                "name": "NoiseType",
+                "question": "What type of noise is the vacuum cleaner making?",
+                "answers": ["None", "Whirring", "Grinding", "Other"]
+            }
+        ]
+    },
+    {
+        "deviceId": "D002",
+        "deviceName": "sewing machine",
+        "questions": [
+            {
+                "id": "Q004",
+                "name": "StitchingIssue",
+                "question": "Is the sewing machine not stitching?",
+                "answers": ["Yes", "No"]
+            },
+            {
+                "id": "Q005",
+                "name": "ThreadBreakage",
+                "question": "Is the thread breaking frequently?",
+                "answers": ["Yes", "No"]
+            },
+            {
+                "id": "Q006",
+                "name": "IssuePart",
+                "question": "Which part of the sewing machine seems to have an issue?",
+                "answers": ["Needle", "Thread Tension", "Bobbin", "Other"]
+            }
+        ]
+    },
+    {
+        "deviceId": "D003",
+        "deviceName": "heater",
+        "questions": [
+            {
+                "id": "Q007",
+                "name": "PowerCheck",
+                "question": "Does the heater have power?",
+                "answers": ["Yes", "No"]
+            },
+            {
+                "id": "Q008",
+                "name": "HeatingIssue",
+                "question": "Is the heater not heating properly?",
+                "answers": ["Yes", "No"]
+            },
+            {
+                "id": "Q009",
+                "name": "TemperatureSetting",
+                "question": "What is the heater's current temperature setting?",
+                "answers": ["<50°F", "50°F - 70°F", "70°F - 90°F", ">90°F"]
+            }
+        ]
+    },
+    {
+        "deviceId": "D004",
+        "deviceName": "air conditioner",
+        "questions": [
+            {
+                "id": "Q010",
+                "name": "PowerCheck",
+                "question": "Does the air conditioner have power?",
+                "answers": ["Yes", "No"]
+            },
+            {
+                "id": "Q011",
+                "name": "CoolingIssue",
+                "question": "Is the air conditioner blowing warm air?",
+                "answers": ["Yes", "No"]
+            },
+            {
+                "id": "Q012",
+                "name": "FilterMaintenance",
+                "question": "How often do you clean or replace the air filter?",
+                "answers": ["Monthly", "Quarterly", "Annually", "Never"]
+            }
+        ]
+    },
+    {
+        "deviceId": "D005",
+        "deviceName": "garbage disposal",
+        "questions": [
+            {
+                "id": "Q013",
+                "name": "PowerCheck",
+                "question": "Does the garbage disposal have power?",
+                "answers": ["Yes", "No"]
+            },
+            {
+                "id": "Q014",
+                "name": "Jammed",
+                "question": "Is the garbage disposal jammed?",
+                "answers": ["Yes", "No"]
+            },
+            {
+                "id": "Q015",
+                "name": "FoodWasteType",
+                "question": "What type of food waste was last processed?",
+                "answers": ["Vegetables", "Meat", "Bones", "Other"]
+            }
+        ]
+    },
+    {
+        "deviceId": "D006",
+        "deviceName": "refrigerator",
+        "questions": [
+            {
+                "id": "Q016",
+                "name": "CoolingIssue",
+                "question": "Is the refrigerator not cooling?",
+                "answers": ["Yes", "No"]
+            },
+            {
+                "id": "Q017",
+                "name": "NoiseType",
+                "question": "Is the refrigerator making loud noises?",
+                "answers": ["Yes", "No"]
+            },
+            {
+                "id": "Q018",
+                "name": "InternalTemperature",
+                "question": "What is the current temperature inside the refrigerator?",
+                "answers": ["<32°F", "32°F - 40°F", "40°F - 50°F", ">50°F"]
+            }
+        ]
+    }
+];
+
 export const devices = [
     {
         "deviceId": "D001",

@@ -36,7 +36,12 @@ export enum AppointmentFormState {
     CONTACT
 }
 
-export type Question = {}
+export type Question = {
+    id: string;
+    name: string;
+    question: string;
+    answers: string[];
+}
 
 export type DiagnosisForm = {
     device: string,

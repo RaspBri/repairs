@@ -5,8 +5,8 @@
  * to display the manufacturer alongside the device on the model cards
  */
 
-import { devices, manufacturers, models } from "./data";
-import { Device, Manufacturer, Model } from "@/app/types";
+import { devices, manufacturers, models, diagnosticQuestions } from "./data";
+import { Device, Manufacturer, Model, Question } from "@/app/types";
 
 const getManufacturersForDevice = (deviceId: string): Manufacturer[] => {
     const filteredModels = models.filter(model => model.deviceId === deviceId);
@@ -46,4 +46,9 @@ export const getManufacturers = (deviceId: string): Manufacturer[] => {
 export const getModels = (manufacturerId: string): Model[] => {
     const models = getModelsByManufacturer(manufacturerId);
     return models;
+}
+
+export const getQuestions = (deviceId: string): Question[] => {
+    const device = diagnosticQuestions.find(device => device.deviceId === deviceId);
+    return device ? device.questions : [];
 }
