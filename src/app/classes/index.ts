@@ -1,8 +1,9 @@
+import { getQuestions } from "../actions/appliance";
 import {
     SignupForm, 
     DiagnosisForm, 
     ScheduleForm,
-    ContactInformationForm 
+    ContactInformationForm,
 } from "../types";
 
 /**
@@ -22,7 +23,7 @@ export class Signup implements SignupForm {
             device: deviceId,
             manufacturer: manufacturerId,
             model: modelId,
-            questions: new Questions(deviceId),
+            questions: getQuestions(deviceId),
         },   
         this.schedule = {
 

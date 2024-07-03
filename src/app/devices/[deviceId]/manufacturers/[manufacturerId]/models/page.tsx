@@ -51,7 +51,7 @@ export default async function Models({ params }: ModelProps) {
 
             <div className="grid grid-cols-2 gap-8">
                 {models.map(model => (
-                <Link key={model.modelId} href={paths.signupForm()}>
+                <Link key={model.modelId} href={paths.signupForm(deviceId, manufacturerId, model.modelId)}>
                     <Card className="flex flex-col justify-center p-3 h-32">
                     <h2 className='text-xl text-center font-semibold'>{model.modelName}</h2>
                     </Card>

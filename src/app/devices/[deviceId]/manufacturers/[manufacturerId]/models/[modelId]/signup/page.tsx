@@ -22,15 +22,15 @@
  * and strings. Reach out to me if you have any questions.
  */
 
-import { useState, createContext } from "react";
-import { useRouter } from "next/router";
+import { useState, createContext, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import FormNavigation from "./components/FormNavigation";
-import { AppointmentFormState, SignupForm, FormContextType } from "../types";
-import { Signup } from "../classes";
+import { AppointmentFormState, SignupForm, FormContextType } from "../../../../../../../types";
+import { Signup } from "../../../../../../../classes";
 import Diagnosis from "./components/Diagnosis";
 import Schedule from "./components/Schedule";
 import Contact from "./components/Contact";
-import { Question } from "../types";
+import { Question } from "../../../../../../../types";
 
 export const FormContext = createContext<FormContextType>({
     form: {
@@ -74,11 +74,16 @@ export const AppointmentFormStateToSignupFormMap: { [key in AppointmentFormState
 };
 
 export default function AppointmentSignup() {
-    const router = useRouter();
-    const { deviceId, manufacturerId, modelId } = router.query;
+    const path = usePathname();
+    const pathSplit = path.split("/");
+    console.log(pathSplit)
     
     const [appointmentFormState, setAppointmentFormState] = useState<AppointmentFormState>(AppointmentFormState.DIAGNOSIS);
-    const [form, setForm] = useState(new Signup(deviceId as string, manufacturerId as string, modelId as string));
+    const [form, setForm] = useState(() => new Signup(
+        (pathSplit[2] as string) || "", 
+        (pathSplit[4] as string) || "", 
+        (pathSplit[6] as string) || ""
+    ));
 
     const onFormChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
         const { name, value } = 'target' in e ? e.target : e;
