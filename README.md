@@ -144,7 +144,7 @@ Feel free to [create an issue](https://github.com/O1SoftwareNetwork/repairs/issu
 In order to contribute:
 
 1. [Fork current repository](https://github.com/O1SoftwareNetwork/repairs/fork).
-2. Clone your fork with `git clone https://github.com/O1SoftwareNetwork/repairs.git`. In order to get an url you need click on the `<> Code` button, and then copy needed link.
+2. Clone your fork with `git clone [your-clone-repo-url]`. In order to get an url you need click on the `<> Code` button, and then copy needed link.
    Be sure that you clone **your fork**, not the original repository.
 3. Add `O1SoftwareNetwork/repairs` repo as your remote - `git remote add upstream git@github.com:O1SoftwareNetwork/repairs.git`. After that, you can update your fork with the main repo easily with `git pull upstream`.
 4. Create a new feature branch (e.g. `fix/signup` or `add/assignment-page`) - `git checkout -b fix/signup`.
