@@ -38,9 +38,9 @@ export enum AppointmentFormState {
 
 export type Question = {
     id: string;
-    text: string;
-    answer: string;
-    options: string[];
+    name: string;
+    question: string;
+    answers: string[];
 }
 
 export type DiagnosisForm = {

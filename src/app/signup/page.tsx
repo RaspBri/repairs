@@ -30,6 +30,7 @@ import { Signup } from "../classes";
 import Diagnosis from "./components/Diagnosis";
 import Schedule from "./components/Schedule";
 import Contact from "./components/Contact";
+import { Question } from "../types";
 
 export const FormContext = createContext<FormContextType>({
     form: {

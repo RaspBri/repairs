@@ -1,9 +1,11 @@
 'use client';
 
 import { RadioGroup, Radio } from '@nextui-org/react';
-import { useContext, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import { FormContext } from "../page";
 import { Question } from "@/app/types";
+import { getQuestions } from "@/app/actions/appliance";
+import { useRouter } from "next/router";
 
 /**
  * This component needs to be changed to remove the device, make, and model select options
@@ -19,6 +21,10 @@ export default function Diagnosis() {
     const { form, onFormChange, updateQuestions } = useContext(FormContext);
     const { diagnosis } = form;
 
+    const [questions, setQuestions] = useState<Question[]>([]);
+    const router = useRouter();
+    const {deviceId, manufacturuerId, modelId} = router.query;
+
     const handleAnswerChange = (questionId: string, answer: string): void => {
         const updatedQuestions = diagnosis.questions.map((q) => (
             q.id === questionId ? { ...q, answer } : q
@@ -29,8 +35,8 @@ export default function Diagnosis() {
     useEffect(() => {
         const fetchQuestions = async () => {
             try {
-                const questions = await getQuestions(diagnosis.device);
-                updateQuestions(questions);
+                const questions = await getQuestions(deviceId);
+                setQuestions(questions);
             } catch (error) {
                 console.error("Failed to fetch QUESTIONS", error);
             }
@@ -46,11 +52,11 @@ export default function Diagnosis() {
             {diagnosis.questions.map((question) => (
                 <div className="question-item" key={question.id}>
                     <RadioGroup
-                        label={question.text}
-                        value={question.answer}
+                        label={question.name}
+                        value={question.answers[0]}
                         onChange={(e) => handleAnswerChange(question.id, e.target.value)}
                     >
-                        {question.options.map((option) => (
+                        {question.answers.map((option) => (
                             <Radio key={option} value={option}>
                                 {option}
                             </Radio>
