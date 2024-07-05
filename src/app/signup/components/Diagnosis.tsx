@@ -1,67 +1,34 @@
 'use client';
 
+import { useState } from 'react';
 import { RadioGroup, Radio } from '@nextui-org/react';
-import { useState, useContext, useEffect } from "react";
-import { FormContext } from "../page";
-import { Question } from "@/app/types";
-import { getQuestions } from "@/app/actions/appliance";
-import { useParams } from 'next/navigation';
+import { Question, SignupForm } from '@/app/types';
 
-export default function Diagnosis() {
-    const { deviceId, manufacturerId, modelId } = useParams();
-    const { form, updateQuestions } = useContext(FormContext);
-    const { diagnosis } = form;
+export interface DiagnosisProps {
+    formData: SignupForm;
+    questions: Question[];
+}
 
-    const [questions, setQuestions] = useState<Question[]>([]);
+export default function Diagnosis({ formData, questions,  }: DiagnosisProps) {
+    const [data, setData] = useState(formData.diagnosis);
 
-    const handleAnswerChange = (questionId: string, answer: string): void => {
-        const updatedQuestions = diagnosis.questions.map((q) => (
-            q.id === questionId ? { ...q, answer } : q
-        ));
-        updateQuestions(updatedQuestions);
-    }
-
-    useEffect(() => {
-        if (deviceId) {
-            form.diagnosis.device = deviceId as string;
-            form.diagnosis.manufacturer = manufacturerId as string;
-            form.diagnosis.model = modelId as string;
-        }
-        
-    },  []);
-
-    useEffect(() => {
-        const fetchQuestions = async () => {
-            if (deviceId) {
-                try {
-                    const questions = await getQuestions(deviceId as string);
-                    setQuestions(questions);
-                } catch (error) {
-                    console.error("Failed to fetch QUESTIONS", error);
-                }
-            } else {
-                throw Error("No device id");
-            }
-            
-        };
-
-        fetchQuestions();
-    }, []);
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setData({ ...data, [e.target.name]: e.target.value });
+      };
 
     return (
         <div>
             <h1 className="text-7xl text-center m-auto py-8 tracking-tightest leading-tight">Diagnosis</h1>
             
             {questions.map((question => (
-                <div className="question-item" key={question.id}>
+                <div key={question.id}>
                 <RadioGroup
-                    label={question.name}
-                    value={question.answers[0]}
-                    onChange={(e) => handleAnswerChange(question.id, e.target.value)}
+                    label={question.question}
+                    value={question.answers[0].option}
                 >
                     {question.answers.map((option) => (
-                        <Radio key={option} value={option}>
-                            {option}
+                        <Radio key={option.id} value={option.option}>
+                            {option.option}
                         </Radio>
                     ))}
                 </RadioGroup>

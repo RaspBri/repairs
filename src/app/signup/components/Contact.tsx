@@ -1,10 +1,10 @@
 'use client';
 
-import { useContext } from "react";
+import { useState } from "react";
 import { Input, Select, SelectItem } from "@nextui-org/react";
 import { useFormState } from "react-dom";
 import { submitSignup } from "@/app/actions/submitSignup";
-import { FormContext } from "../page";
+import { SignupForm } from "@/app/types";
 
 const unitedStates = [
     "AB",
@@ -14,9 +14,18 @@ const unitedStates = [
 
 // Remember to include processZipcode in submitSignup server action
 
-export default function Contact() {
-    const { form, onFormChange } = useContext(FormContext);
-    const [formState, action] = useFormState(submitSignup, {
+export interface ContactProps {
+    formData: SignupForm;
+}
+
+export default function Contact({ formData }: ContactProps) {
+    const [data, setData] = useState(formData.contact);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setData({ ...data, [e.target.name]: e.target.value });
+    };
+
+    const [formformContext, action] = useFormState(submitSignup, {
         errors: {}
     });
 
@@ -25,14 +34,14 @@ export default function Contact() {
             <form className="flex flex-col gap-4">
                 <h1 className="text-7xl text-center m-auto py-8 tracking-tightest leading-tight">Contact</h1>
                 <Input
-                    value={form.contact.email}
+                    value={formContext.form.contact.email}
                     name="email"
                     type="text"
                     label="Email"
                     maxLength={50}
                     isRequired 
                     placeholder="johndoe@gmail.com"
-                    onChange={onFormChange}
+                    onChange={(e) => formContext.onFormChange(e)}
                 />
                 <Input 
                     type="text" 

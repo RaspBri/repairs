@@ -1,28 +1,15 @@
-import { Button } from "@nextui-org/react";
-import { FormContext } from "../page";
-import { useContext } from "react";
-
-enum AppointmentFormState {
-    DIAGNOSIS,
-    SCHEDULE,
-    CONTACT
+interface FormNavigationProps {
+    onNext: () => void,
+    onPrev: () => void,
+    canGoNext: boolean;
+    canGoPrev: boolean;
 }
 
-export default function FormNavigation() {
-    const { appointmentFormState, setAppointmentFormState } = useContext(FormContext);
-
-    const handleForward = () => (appointmentFormState <= AppointmentFormState.SCHEDULE) && setAppointmentFormState(appointmentFormState + 1);
-    const handleBack = () => (appointmentFormState >= AppointmentFormState.SCHEDULE) && setAppointmentFormState(appointmentFormState - 1);
-    const backButtonRequired = appointmentFormState >= AppointmentFormState.SCHEDULE;
-    const nextOrSubmit = appointmentFormState <= AppointmentFormState.SCHEDULE;
-
+export default function FormNavigation({ onNext, onPrev, canGoNext, canGoPrev }: FormNavigationProps) {
     return (
-        <div className={`flex ${appointmentFormState === AppointmentFormState.DIAGNOSIS ? 'justify-end' : 'justify-between'} py-3`}>
-            {backButtonRequired && <Button color="primary" onClick={handleBack}>Go Back</Button>}
-            {nextOrSubmit ? 
-                <Button color="primary" onClick={handleForward}>Next</Button> :
-                <Button color="primary" type="submit">Submit</Button>
-            }
+        <div>
+            {canGoPrev && <button onClick={onPrev}>Back</button>}
+            {canGoNext && <button onClick={onNext}>Next</button>}
         </div>
     );
 }

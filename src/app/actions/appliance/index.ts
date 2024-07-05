@@ -48,7 +48,7 @@ export const getModels = (manufacturerId: string): Model[] => {
     return models;
 }
 
-export const getQuestions = (deviceId: string): Question[] => {
+export const fetchQuestions = (deviceId: string): Question[] => {
     const device = diagnosticQuestions.find(device => device.deviceId === deviceId);
     return device ? device.questions : [];
 }

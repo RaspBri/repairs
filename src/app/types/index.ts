@@ -1,5 +1,3 @@
-import { Signup } from "../classes"
-
 /*******************************************************
  * *****************************************************
  * ******************* DEVICE DATA *********************
@@ -36,23 +34,35 @@ export enum AppointmentFormState {
     CONTACT
 }
 
-export type Question = {
-    id: string;
-    name: string;
-    question: string;
-    answers: string[];
+export enum DeviceMakeModel {
+    DEVICE = "device",
+    MANUFACTURER = "manufacturer",
+    MODEL = "model"
 }
 
-export type DiagnosisForm = {
+export type KeyFormState = Diagnosis | Schedule | Contact;
+
+export type Question = {
+    id: string;
+    question: string;
+    answers: Answer[];
+}
+
+export type Answer = {
+    id: string;
+    option: string;
+}
+
+export type Diagnosis = {
     device: string,
     manufacturer: string,
     model: string,
     questions: Question[],
 }
 
-export type ScheduleForm = {}
+export type Schedule = {}
 
-export type ContactInformationForm = {
+export type Contact = {
     email: string;
     firstName: string;
     lastName: string;
@@ -65,15 +75,7 @@ export type ContactInformationForm = {
 }
 
 export type SignupForm = {
-    diagnosis: DiagnosisForm;
-    schedule: ScheduleForm;
-    contact: ContactInformationForm;
-}
-
-export type FormContextType = {
-    form: Signup;
-    onFormChange: (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) =>  void;
-    appointmentFormState: AppointmentFormState;
-    setAppointmentFormState: React.Dispatch<React.SetStateAction<AppointmentFormState>>;
-    updateQuestions: (questions: Question[]) => void
+    diagnosis: Diagnosis;
+    schedule: Schedule;
+    contact: Contact;
 }
