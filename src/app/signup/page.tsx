@@ -1,5 +1,6 @@
 'use client';
 
+<<<<<<< HEAD
 /**
  * We need several things done in this component
  * 
@@ -18,57 +19,116 @@
  */
 
 import { useState } from "react";
+=======
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
+>>>>>>> 631d750a2b0fc67445bc8689c8b2ec1bbdaca8b5
 import FormNavigation from "./components/FormNavigation";
 import { AppointmentFormState, SignupForm } from "../types";
-import { Signup } from "../classes";
 import Diagnosis from "./components/Diagnosis";
 import Schedule from "./components/Schedule";
 import Contact from "./components/Contact";
-import { FormContext } from "../state";
+import { getQuestions } from "../actions/appliance";
+import { DiagnosisProps } from "./components/Diagnosis";
+import { ScheduleProps } from "./components/Schedule";
+import { ContactProps } from "./components/Contact";
+import { Question } from "../types";
 
-export const AppointmentFormStateToComponentMap: { [key in AppointmentFormState]: React.ReactElement } = {
-    [AppointmentFormState.DIAGNOSIS]: <Diagnosis />,
-    [AppointmentFormState.SCHEDULE]: <Schedule />,
-    [AppointmentFormState.CONTACT]: <Contact />
-};
-
-export const AppointmentFormStateToSignupFormMap: { [key in AppointmentFormState]: keyof SignupForm } = {
-    [AppointmentFormState.DIAGNOSIS]: 'diagnosis',
-    [AppointmentFormState.SCHEDULE]: 'schedule',
-    [AppointmentFormState.CONTACT]: 'contact'
-};
+export const AppointmentFormStateToComponentMap = {
+    [AppointmentFormState.DIAGNOSIS]: (props: DiagnosisProps) => <Diagnosis {...props} />,
+    [AppointmentFormState.SCHEDULE]: (props: ScheduleProps) => <Schedule {...props} />,
+    [AppointmentFormState.CONTACT]: (props: ContactProps) => <Contact {...props} />,
+  };
 
 export default function AppointmentSignup() {
-    const [appointmentFormState, setAppointmentFormState] = useState<AppointmentFormState>(AppointmentFormState.DIAGNOSIS);
-    /******************************************************************************************
-     * Replace the static strings below with actual values being pulled from the URL parameters
-     *****************************************************************************************/
-    const [form, setForm] = useState(new Signup("deviceId", "manufacturersId", "modelId"));
+    const params = useSearchParams();
+    const deviceId = params.get("deviceId") as string;
+    const manufacturerId = params.get("manufacturerId") as string;
+    const modelId = params.get("modelId") as string;
+    const [state, setState] = useState(0);
+    const [formData, setFormData] = useState({
+        diagnosis: {
+            device: deviceId,
+            manufacturer: manufacturerId,
+            model: modelId,
+            questions: [] as Question[] | [],
+        },
+        schedule: {},
+        contact: {
+            email: "",
+            firstName: "",
+            lastName: "",
+            phone: "",
+            address_line_1: "",
+            address_line_2: "",
+            city: "",
+            state: "",
+            zipcode: ""
+        }
+    });
 
-    const onFormChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
-        const { name, value } = 'target' in e ? e.target : e;
-        updateForm(name, value);
-    }
-
-    const updateForm = (name: string, value: string) => {
-        setForm(prevForm => ({
-            ...prevForm,
-            [AppointmentFormStateToSignupFormMap[appointmentFormState]]: {
-                ...prevForm[AppointmentFormStateToSignupFormMap[appointmentFormState]],
-                [name]: value
+    useEffect(() => {
+        async function fetchQuestions() {
+            try {
+                const Qs = await getQuestions(formData.diagnosis.device);
+                setFormData((prev) => {
+                    return {
+                        ...prev,
+                        diagnosis: {
+                            ...prev.diagnosis,
+                            questions: Qs
+                        }
+                    }
+                });
+            } catch(err) {
+                console.error(err);
             }
-        }));
-    }
+            
+        }
+
+        fetchQuestions()
+    }, []);
+
+    const handleNext = () => {
+        setState((prevStep) => {
+            if (prevStep === AppointmentFormState.DIAGNOSIS) return AppointmentFormState.SCHEDULE;
+            if (prevStep === AppointmentFormState.SCHEDULE) return AppointmentFormState.CONTACT;
+            return prevStep;
+        });
+    };
+    
+    const handlePrev = () => {
+        setState((prevStep) => {
+            if (prevStep === AppointmentFormState.CONTACT) return AppointmentFormState.SCHEDULE;
+            if (prevStep === AppointmentFormState.SCHEDULE) return AppointmentFormState.DIAGNOSIS;
+            return prevStep;
+        });
+    };
+    
+    const handleSubmit = (data: SignupForm) => {
+        setFormData((prev) => ({ ...prev, ...data }));
+        // Handle form submission logic here
+    };
+
+    const renderState = () => {
+        const Component = AppointmentFormStateToComponentMap[state as AppointmentFormState];
+        return <Component formData={formData} />;
+    };
+
+    const canGoNext = state !== AppointmentFormState.CONTACT;
+    const canGoPrev = state !== AppointmentFormState.DIAGNOSIS;
 
     return (
-        <div className="max-w-lg">
-            {/* <form action={submitForm}> */}
-                <FormContext.Provider value={{ form, onFormChange, appointmentFormState, setAppointmentFormState }}>
-                    {AppointmentFormStateToComponentMap[appointmentFormState]}
-                    <FormNavigation />
-                </FormContext.Provider>
-                
-            {/* </form> */}
+        <div className="max-w-lg">   
+            {renderState()}
+            <FormNavigation
+                onNext={handleNext}
+                onPrev={handlePrev} 
+                onSubmit={handleSubmit}
+                canGoNext={canGoNext}
+                canGoPrev={canGoPrev}
+                formData={formData}
+            />
         </div>
     );
 }

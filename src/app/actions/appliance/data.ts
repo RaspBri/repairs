@@ -47,28 +47,36 @@
  * this, we'll scrape the data from wikipedia: https://en.wikipedia.org/wiki/List_of_vacuum_cleaners
  */
 
-export const diagnosticQuestions = [
+  export const diagnosticQuestions = [
     {
         "deviceId": "D001",
         "deviceName": "vacuum cleaner",
         "questions": [
             {
                 "id": "Q001",
-                "name": "PowerCheck",
                 "question": "Does the vacuum cleaner have power?",
-                "answers": ["Yes", "No"]
+                "answers": [
+                    { "id": "A001", "option": "Yes" },
+                    { "id": "A002", "option": "No" }
+                ]
             },
             {
                 "id": "Q002",
-                "name": "CordCondition",
                 "question": "Is the vacuum cleaner's cord ripped or damaged?",
-                "answers": ["Yes", "No"]
+                "answers": [
+                    { "id": "A003", "option": "Yes" },
+                    { "id": "A004", "option": "No" }
+                ]
             },
             {
                 "id": "Q003",
-                "name": "NoiseType",
                 "question": "What type of noise is the vacuum cleaner making?",
-                "answers": ["None", "Whirring", "Grinding", "Other"]
+                "answers": [
+                    { "id": "A005", "option": "None" },
+                    { "id": "A006", "option": "Whirring" },
+                    { "id": "A007", "option": "Grinding" },
+                    { "id": "A008", "option": "Other" }
+                ]
             }
         ]
     },
@@ -78,21 +86,29 @@ export const diagnosticQuestions = [
         "questions": [
             {
                 "id": "Q004",
-                "name": "StitchingIssue",
                 "question": "Is the sewing machine not stitching?",
-                "answers": ["Yes", "No"]
+                "answers": [
+                    { "id": "A009", "option": "Yes" },
+                    { "id": "A010", "option": "No" }
+                ]
             },
             {
                 "id": "Q005",
-                "name": "ThreadBreakage",
                 "question": "Is the thread breaking frequently?",
-                "answers": ["Yes", "No"]
+                "answers": [
+                    { "id": "A011", "option": "Yes" },
+                    { "id": "A012", "option": "No" }
+                ]
             },
             {
                 "id": "Q006",
-                "name": "IssuePart",
                 "question": "Which part of the sewing machine seems to have an issue?",
-                "answers": ["Needle", "Thread Tension", "Bobbin", "Other"]
+                "answers": [
+                    { "id": "A013", "option": "Needle" },
+                    { "id": "A014", "option": "Thread Tension" },
+                    { "id": "A015", "option": "Bobbin" },
+                    { "id": "A016", "option": "Other" }
+                ]
             }
         ]
     },
@@ -102,21 +118,29 @@ export const diagnosticQuestions = [
         "questions": [
             {
                 "id": "Q007",
-                "name": "PowerCheck",
                 "question": "Does the heater have power?",
-                "answers": ["Yes", "No"]
+                "answers": [
+                    { "id": "A017", "option": "Yes" },
+                    { "id": "A018", "option": "No" }
+                ]
             },
             {
                 "id": "Q008",
-                "name": "HeatingIssue",
                 "question": "Is the heater not heating properly?",
-                "answers": ["Yes", "No"]
+                "answers": [
+                    { "id": "A019", "option": "Yes" },
+                    { "id": "A020", "option": "No" }
+                ]
             },
             {
                 "id": "Q009",
-                "name": "TemperatureSetting",
                 "question": "What is the heater's current temperature setting?",
-                "answers": ["<50°F", "50°F - 70°F", "70°F - 90°F", ">90°F"]
+                "answers": [
+                    { "id": "A021", "option": "<50°F" },
+                    { "id": "A022", "option": "50°F - 70°F" },
+                    { "id": "A023", "option": "70°F - 90°F" },
+                    { "id": "A024", "option": ">90°F" }
+                ]
             }
         ]
     },
@@ -126,21 +150,29 @@ export const diagnosticQuestions = [
         "questions": [
             {
                 "id": "Q010",
-                "name": "PowerCheck",
                 "question": "Does the air conditioner have power?",
-                "answers": ["Yes", "No"]
+                "answers": [
+                    { "id": "A025", "option": "Yes" },
+                    { "id": "A026", "option": "No" }
+                ]
             },
             {
                 "id": "Q011",
-                "name": "CoolingIssue",
                 "question": "Is the air conditioner blowing warm air?",
-                "answers": ["Yes", "No"]
+                "answers": [
+                    { "id": "A027", "option": "Yes" },
+                    { "id": "A028", "option": "No" }
+                ]
             },
             {
                 "id": "Q012",
-                "name": "FilterMaintenance",
                 "question": "How often do you clean or replace the air filter?",
-                "answers": ["Monthly", "Quarterly", "Annually", "Never"]
+                "answers": [
+                    { "id": "A029", "option": "Monthly" },
+                    { "id": "A030", "option": "Quarterly" },
+                    { "id": "A031", "option": "Annually" },
+                    { "id": "A032", "option": "Never" }
+                ]
             }
         ]
     },
@@ -150,21 +182,29 @@ export const diagnosticQuestions = [
         "questions": [
             {
                 "id": "Q013",
-                "name": "PowerCheck",
                 "question": "Does the garbage disposal have power?",
-                "answers": ["Yes", "No"]
+                "answers": [
+                    { "id": "A033", "option": "Yes" },
+                    { "id": "A034", "option": "No" }
+                ]
             },
             {
                 "id": "Q014",
-                "name": "Jammed",
                 "question": "Is the garbage disposal jammed?",
-                "answers": ["Yes", "No"]
+                "answers": [
+                    { "id": "A035", "option": "Yes" },
+                    { "id": "A036", "option": "No" }
+                ]
             },
             {
                 "id": "Q015",
-                "name": "FoodWasteType",
                 "question": "What type of food waste was last processed?",
-                "answers": ["Vegetables", "Meat", "Bones", "Other"]
+                "answers": [
+                    { "id": "A037", "option": "Vegetables" },
+                    { "id": "A038", "option": "Meat" },
+                    { "id": "A039", "option": "Bones" },
+                    { "id": "A040", "option": "Other" }
+                ]
             }
         ]
     },
@@ -174,25 +214,34 @@ export const diagnosticQuestions = [
         "questions": [
             {
                 "id": "Q016",
-                "name": "CoolingIssue",
                 "question": "Is the refrigerator not cooling?",
-                "answers": ["Yes", "No"]
+                "answers": [
+                    { "id": "A041", "option": "Yes" },
+                    { "id": "A042", "option": "No" }
+                ]
             },
             {
                 "id": "Q017",
-                "name": "NoiseType",
                 "question": "Is the refrigerator making loud noises?",
-                "answers": ["Yes", "No"]
+                "answers": [
+                    { "id": "A043", "option": "Yes" },
+                    { "id": "A044", "option": "No" }
+                ]
             },
             {
                 "id": "Q018",
-                "name": "InternalTemperature",
                 "question": "What is the current temperature inside the refrigerator?",
-                "answers": ["<32°F", "32°F - 40°F", "40°F - 50°F", ">50°F"]
+                "answers": [
+                    { "id": "A045", "option": "<32°F" },
+                    { "id": "A046", "option": "32°F - 40°F" },
+                    { "id": "A047", "option": "40°F - 50°F" },
+                    { "id": "A048", "option": ">50°F" }
+                ]
             }
         ]
     }
 ];
+
 
 export const devices = [
     {

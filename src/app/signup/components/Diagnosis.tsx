@@ -1,50 +1,40 @@
 'use client';
 
-/**
- * This component needs to be changed to remove the device, make, and model select options
- * 
- * The UI has changed, so by the time a user gets to this page,
- * they will have already selected their device, manufacturer, and model
- * 
- * This information will be used to determine which questions to ask
- * during the Diagnosis stage of the form.
- */
+import { useEffect, useState } from 'react';
+import { RadioGroup, Radio } from '@nextui-org/react';
+import { Question, SignupForm } from '@/app/types';
+import { getQuestions } from '@/app/actions/appliance';
 
-import { useState, useContext, useEffect } from "react";
-import { FormContext } from "@/app/state";
-import { Question } from "@/app/types";
-import { getQuestions } from "@/app/actions/appliance";
-import { useRouter } from "next/router";
+export interface DiagnosisProps {
+    formData: SignupForm;
+}
 
-export default function Diagnosis() {
-    const [questions, setQuestions] = useState<Question[]>([]);
-    const { onFormChange } = useContext(FormContext);
-    const router = useRouter();
-    const {deviceId, manufacturuerId, modelId} = router.query;
-    const dId = deviceId as string;
+export default function Diagnosis({ formData }: DiagnosisProps) {
+    const [data, setData] = useState(formData);
 
-    const onChange = () => {
-
-    }
-
-    useEffect(() => {
-        const fetchQuestions = async () => {
-            try {
-                const questions = await getQuestions(dId);
-                setQuestions(questions);
-            } catch (error) {
-                console.error("Failed to fetch QUESTIONS", error);
-            }
-        };
-
-        fetchQuestions();
-    }, []);
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setData({ ...data, [e.target.name]: e.target.value });
+    };
 
     return (
         <div>
             <h1 className="text-7xl text-center m-auto py-8 tracking-tightest leading-tight">Diagnosis</h1>
             
-            {/* Render questions here */}
+            {formData.diagnosis.questions.map((question => (
+                <div key={question.id}>
+                <RadioGroup
+                    label={question.question}
+                    value={question.answers[0].option}
+                    onChange={handleChange}
+                >
+                    {question.answers.map((option) => (
+                        <Radio key={option.id} value={option.option}>
+                            {option.option}
+                        </Radio>
+                    ))}
+                </RadioGroup>
+            </div>
+            )))}
         </div>
     );
 }

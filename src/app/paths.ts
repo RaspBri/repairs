@@ -12,6 +12,6 @@ export const paths = {
         return `/devices/${deviceId}/manufacturers/${manufacturerId}/models`;
     },
     signupForm(): string {
-        return '/signup';
+        return "/signup";
     }
 }
