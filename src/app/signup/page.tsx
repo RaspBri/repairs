@@ -3,11 +3,6 @@
 /**
  * We need several things done in this component
  * 
- * The first thing is by the time we get to this page, the customer has already selected
- * their device, manufacturer, and model. Because of this, we need to pull the deviceId 
- * off the url and use this to select which set of questions we're going to ask in the
- * Diagnosis component. 
- * 
  * We do not yet have the questions that are designed for each particular device, so this
  * needs to be built. There will be some questions that are asked for each and every device,
  * like "Does it turn on?" 

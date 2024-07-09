@@ -1,28 +1,18 @@
 'use client';
 
+import dynamic from "next/dynamic";
 import { faker } from "@faker-js/faker";
-import {APIProvider, Map, Marker} from '@vis.gl/react-google-maps';
-// import { accessSecret } from "../actions/getGoogleSecret";
+
+const Map = dynamic(() => import('./Map'), { ssr: false });
 
 export default async function Admin() {
-    // const key = await accessSecret();
-
-    // if (!key) {
-    //     return (
-    //         <div>
-    //             Cannot find key
-    //         </div>
-    //     );
-    // }
-
     const position = {lat: 53.54992, lng: 10.00678};
 
     return (
-        <APIProvider apiKey={""}>
-            <Map defaultCenter={position} defaultZoom={10}>
-            <Marker position={position} />
-            </Map>
-        </APIProvider>
+        <>
+            <h1>Admin Dashboard</h1>
+            <Map />
+        </>
     );
 }
 
