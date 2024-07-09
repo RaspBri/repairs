@@ -1,13 +1,9 @@
 'use client';
 
-import dynamic from "next/dynamic";
 import { faker } from "@faker-js/faker";
-
-const Map = dynamic(() => import('./Map'), { ssr: false });
+import Map from "./Map";
 
 export default async function Admin() {
-    const position = {lat: 53.54992, lng: 10.00678};
-
     return (
         <>
             <h1>Admin Dashboard</h1>

@@ -1,3 +1,5 @@
+'use client';
+
 import { SignupForm } from "@/app/types";
 
 interface FormNavigationProps {

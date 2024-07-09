@@ -1,5 +1,3 @@
-'use server';
-
 import { Card } from "@nextui-org/react";
 import { getModels } from "@/app/actions/appliance";
 import { passDevicesToForm } from "@/app/actions/submitDevices";

@@ -1,28 +1,7 @@
 'use client';
 
-<<<<<<< HEAD
-/**
- * We need several things done in this component
- * 
- * We do not yet have the questions that are designed for each particular device, so this
- * needs to be built. There will be some questions that are asked for each and every device,
- * like "Does it turn on?" 
- * 
- * You can see in the FormContext that we're using a new Signup() to create our form. We're going to pass
- * the deviceId, manufacturerId, and modelId into this class constructor to preset these values. 
- * 
- * When the user selects an answer to the question in the Diagnosis form, we need to update the
- * form in real time. Here, we're  not just updating a string like all the other fields, we're
- * updating an array. So, think this through before beginning this task. Please review the onFormChange
- * and updateForm functions inside this component which are currently working with just the form objects
- * and strings. Reach out to me if you have any questions.
- */
-
-import { useState } from "react";
-=======
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
->>>>>>> 631d750a2b0fc67445bc8689c8b2ec1bbdaca8b5
 import FormNavigation from "./components/FormNavigation";
 import { AppointmentFormState, SignupForm } from "../types";
 import Diagnosis from "./components/Diagnosis";
