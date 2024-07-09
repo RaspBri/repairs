@@ -4,33 +4,6 @@ import { Card } from "@nextui-org/react";
 import { getModels } from "@/app/actions/appliance";
 import { passDevicesToForm } from "@/app/actions/submitDevices";
 
-/**
- * THIS COMPONENT MUST REMAIN SERVER SIDE RENDERED
- * 
- * This is the last page the customer reaches before they reach a client side rendered component.
- * So, everything from the landing page until now is a sticky spot for the search engines to find
- * and share
- * 
- * This page must also be expanded to optimize SEO.
- * 
- * Similar to the manufacturer cards presenting the name of the devices, the model cards should
- * present both the device and the manufacturer on it. Again, the device name and manufacturer
- * name should be smaller than the manufacturer but bold. I already added the device to give you
- * an idea of what I mean. If you're doing this, we need a getManufacturer() function inside the
- * /actions/appliance/index.ts file. See getDevice() function for insight (NOT getDevices() no "s")
- * 
- * Similar to the device and manufacturer pages, we need to add a tiny bit of vital information
- * to each card. e.g. when the model was first released, different versions, designer, etc. We 
- * can discuss which is the most potent information for this.
- * 
- * Along with the additional information directly appearing on the card, it may be a good idea
- * to add an info circle that customers can find more information on. Even if they don't click
- * it, this ensures there is more information on the page for search engines to help us better
- * our SEO
- * 
- * THIS COMPONENT MUST REMAIN SERVER SIDE RENDERED
- */
-
 interface ModelProps {
     params: {
         deviceId: string;

@@ -21,7 +21,7 @@ export interface ContactProps {
 export default function Contact({ formData }: ContactProps) {
     const [data, setData] = useState(formData.contact);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
         setData({ ...data, [e.target.name]: e.target.value });
     };
 
@@ -34,14 +34,14 @@ export default function Contact({ formData }: ContactProps) {
             <form className="flex flex-col gap-4">
                 <h1 className="text-7xl text-center m-auto py-8 tracking-tightest leading-tight">Contact</h1>
                 <Input
-                    value={formContext.form.contact.email}
+                    value={data.email}
                     name="email"
                     type="text"
                     label="Email"
                     maxLength={50}
                     isRequired 
                     placeholder="johndoe@gmail.com"
-                    onChange={(e) => formContext.onFormChange(e)}
+                    onChange={handleChange}
                 />
                 <Input 
                     type="text" 
@@ -49,9 +49,9 @@ export default function Contact({ formData }: ContactProps) {
                     label="First Name"
                     maxLength={20}
                     isRequired 
-                    value={form.contact.firstName}
+                    value={data.firstName}
                     placeholder="John Doe"
-                    onChange={onFormChange}
+                    onChange={handleChange}
                 />
                 <Input 
                     type="text" 
@@ -59,42 +59,42 @@ export default function Contact({ formData }: ContactProps) {
                     name="Last Name"
                     maxLength={20}
                     isRequired 
-                    value={form.contact.lastName}
+                    value={data.lastName}
                     placeholder="John Doe"
-                    onChange={onFormChange} 
+                    onChange={handleChange} 
                 />
                 <Input 
                     type="text" 
                     label="Address Line 1"
                     maxLength={100}
                     isRequired 
-                    value={form.contact.address_line_1}
+                    value={data.address_line_1}
                     placeholder="123 Main Street"
-                    onChange={onFormChange} 
+                    onChange={handleChange} 
                 />
                 <Input 
                     type="text" 
                     label="Address Line 2"
                     maxLength={100}
-                    value={form.contact.address_line_2}
+                    value={data.address_line_2}
                     placeholder="e.g. Unit 34"
-                    onChange={onFormChange}
+                    onChange={handleChange}
                 />
                 <Input 
                     type="text" 
                     label="City"
                     maxLength={50}
                     isRequired 
-                    value={form.contact.city}
+                    value={data.city}
                     placeholder="New York"
-                    onChange={onFormChange} 
+                    onChange={handleChange} 
                 />
                 <Select 
                     label="Select a State" 
                     className="max-w-xs"
-                    value={form.contact.state}
+                    value={data.state}
                     name="state"
-                    onChange={onFormChange}
+                    onChange={handleChange}
                 >
                     {unitedStates.map((usState) => (
                         <SelectItem key={usState}>

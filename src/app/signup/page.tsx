@@ -1,22 +1,17 @@
 'use client';
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import FormNavigation from "./components/FormNavigation";
 import { AppointmentFormState, SignupForm } from "../types";
 import Diagnosis from "./components/Diagnosis";
 import Schedule from "./components/Schedule";
 import Contact from "./components/Contact";
-import { fetchQuestions } from "../actions/appliance";
+import { getQuestions } from "../actions/appliance";
 import { DiagnosisProps } from "./components/Diagnosis";
 import { ScheduleProps } from "./components/Schedule";
 import { ContactProps } from "./components/Contact";
-
-// export const AppointmentFormStateToComponentMap: { [key in AppointmentFormState]: React.ReactNode } = {
-//     [AppointmentFormState.DIAGNOSIS]: <Diagnosis />,
-//     [AppointmentFormState.SCHEDULE]: <Schedule />,
-//     [AppointmentFormState.CONTACT]: <Contact />
-// };
+import { Question } from "../types";
 
 export const AppointmentFormStateToComponentMap = {
     [AppointmentFormState.DIAGNOSIS]: (props: DiagnosisProps) => <Diagnosis {...props} />,
@@ -30,13 +25,12 @@ export default function AppointmentSignup() {
     const manufacturerId = params.get("manufacturerId") as string;
     const modelId = params.get("modelId") as string;
     const [state, setState] = useState(0);
-    const questions = fetchQuestions(deviceId);
     const [formData, setFormData] = useState({
         diagnosis: {
             device: deviceId,
             manufacturer: manufacturerId,
             model: modelId,
-            questions,
+            questions: [] as Question[] | [],
         },
         schedule: {},
         contact: {
@@ -52,12 +46,34 @@ export default function AppointmentSignup() {
         }
     });
 
+    useEffect(() => {
+        async function fetchQuestions() {
+            try {
+                const Qs = await getQuestions(formData.diagnosis.device);
+                setFormData((prev) => {
+                    return {
+                        ...prev,
+                        diagnosis: {
+                            ...prev.diagnosis,
+                            questions: Qs
+                        }
+                    }
+                });
+            } catch(err) {
+                console.error(err);
+            }
+            
+        }
+
+        fetchQuestions()
+    }, []);
+
     const handleNext = () => {
         setState((prevStep) => {
             if (prevStep === AppointmentFormState.DIAGNOSIS) return AppointmentFormState.SCHEDULE;
             if (prevStep === AppointmentFormState.SCHEDULE) return AppointmentFormState.CONTACT;
             return prevStep;
-          });
+        });
     };
     
     const handlePrev = () => {
@@ -65,7 +81,7 @@ export default function AppointmentSignup() {
             if (prevStep === AppointmentFormState.CONTACT) return AppointmentFormState.SCHEDULE;
             if (prevStep === AppointmentFormState.SCHEDULE) return AppointmentFormState.DIAGNOSIS;
             return prevStep;
-          });
+        });
     };
     
     const handleSubmit = (data: SignupForm) => {
@@ -75,11 +91,8 @@ export default function AppointmentSignup() {
 
     const renderState = () => {
         const Component = AppointmentFormStateToComponentMap[state as AppointmentFormState];
-        if (state === AppointmentFormState.DIAGNOSIS) {
-          return <Component formData={formData} questions={questions}  /> as React.ReactElement<DiagnosisProps>;
-        }
-        return <Component formData={formData} questions={questions} /> as React.ReactElement<ScheduleProps | ContactProps>;
-      };
+        return <Component formData={formData} />;
+    };
 
     const canGoNext = state !== AppointmentFormState.CONTACT;
     const canGoPrev = state !== AppointmentFormState.DIAGNOSIS;
@@ -88,10 +101,12 @@ export default function AppointmentSignup() {
         <div className="max-w-lg">   
             {renderState()}
             <FormNavigation
-                onNext={() => handleNext()}
+                onNext={handleNext}
                 onPrev={handlePrev} 
+                onSubmit={handleSubmit}
                 canGoNext={canGoNext}
                 canGoPrev={canGoPrev}
+                formData={formData}
             />
         </div>
     );
