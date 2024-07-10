@@ -27,12 +27,14 @@ export default function Schedule({ formData }: ScheduleProps) {
                 className="max-w-xs mb-6"
                 defaultValue={parseDate("2024-06-26")} 
                 placeholderValue={new CalendarDate(1995, 11, 6)} 
+                // onChange={handleChange}
             />
             <TimeInput 
                 isReadOnly 
                 className="max-w-xs mb-6"
                 label="Appointment Time" 
                 defaultValue={new Time(12, 45)} 
+                // onChange={handleChange}
             />
         </div>
     );

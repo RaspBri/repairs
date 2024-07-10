@@ -1,9 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { RadioGroup, Radio } from '@nextui-org/react';
-import { Question, SignupForm } from '@/app/types';
-import { getQuestions } from '@/app/actions/appliance';
+import { SignupForm } from '@/app/types';
 
 export interface DiagnosisProps {
     formData: SignupForm;
