@@ -1,7 +1,7 @@
 'use server';
 
-import { db } from "@/db/db";
-import shapefile from 'shapefile';
+import path from 'path';
+import shapefile from 'shapefile';;
 import { FeatureCollection, Feature } from 'geojson';
 
 export default async function getZipcodeDataFromDb() {
@@ -14,14 +14,16 @@ export default async function getZipcodeDataFromDb() {
     // return zipcodeData;
 }
 
-// function to load shapefiles
-export async function loadShapeFile(url: string) {
-    const response = await fetch(url);
-    const arrayBuffer = await response.arrayBuffer();
-    const source = await shapefile.open(arrayBuffer)
-    const geoJson: FeatureCollection = { type: 'FeatureCollection', features: [] }
+// Function to load shapefiles from the filesystem
+export async function loadShapeFile(): Promise<FeatureCollection> {
+    const fullPath = path.resolve('src/app/actions/admin/zipcodedata/cb_2018_us_zcta510_500k.shp');
+    console.log(`Loading shapefile from: ${fullPath}`);
+
+    const source = await shapefile.open(fullPath);
+    const geoJson: FeatureCollection = { type: 'FeatureCollection', features: [] };
 
     let result = await source.read();
+
     while (!result.done) {
         if (result.value) {
             geoJson.features.push(result.value as Feature);
