@@ -1,4 +1,5 @@
 import { SignupForm } from "@/app/types";
+import {Button} from "@nextui-org/react";
 
 interface FormNavigationProps {
     onNext: () => void,
@@ -11,10 +12,10 @@ interface FormNavigationProps {
 
 export default function FormNavigation({ onNext, onPrev, onSubmit, canGoNext, canGoPrev, formData }: FormNavigationProps) {
     return (
-        <div>
-            {canGoPrev && <button onClick={onPrev}>Back</button>}
-            {canGoNext && <button onClick={onNext}>Next</button>}
-            {!canGoNext && <button onClick={() => onSubmit(formData)}>Submit</button>}
+        <div className="flex space-x-40">
+            {canGoPrev && <Button color="warning" onClick={onPrev}>Back</Button>}
+            {canGoNext && <Button color="warning" onClick={onNext}>Next</Button>}
+            {!canGoNext && <Button color="warning" onClick={() => onSubmit(formData)}>Submit</Button>}
         </div>
     );
 }

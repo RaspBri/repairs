@@ -2,23 +2,6 @@ import Link from "next/link";
 import { paths } from "./paths";
 import { Button } from "@nextui-org/react";
 
-/**
-*************************** SMALL APPLIANCES  ************************
-* Vacuum Cleaners
-* Sewing Machines
-* Heaters
- ************************* LARGE APPLIANCES  *************************
-* Air Conditioners
-* Garbage Disposals
-* Refrigerators and Freezers
-* Electric Ovens and Stoves
-* Washers/Dryers
- **************************** TECHNOLOGY  ****************************
-* Televisions
-* Smartphones and Tablets
-* Computers and Labtops
-*/
-
 export default async function Home() {
   return (
     <div className="text-center">

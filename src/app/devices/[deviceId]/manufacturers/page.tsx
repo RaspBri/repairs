@@ -3,29 +3,6 @@ import { paths } from "@/app/paths";
 import { Card } from "@nextui-org/react";
 import { getManufacturers } from "@/app/actions/appliance";
 
-/**
- * THIS COMPONENT MUST REMAIN SERVER SIDE RENDERED
- * 
- * Each card should not only show the manuffacturer, but it should
- * list the type of device. e.g. If the customer has selected vacuum
- * cleaner, each manufacturer card should say vacuum cleaner on it in
- * small colored lettering. More bold than the manufacturer name.
- * 
- * Similar to the devices page, we should have a little bit more info
- * about the particular manufacturer to increase SEO. For example, their
- * speciality, their history, their location, SOMETHING. We can discuss 
- * what is the best option for SEO. If you're doing this, we need to import
- * the getDevice() function from the /actions/appliance/index.ts file. 
- * 
- * getDevice()   (NOT getDevices() no "s")
- * 
- * An info circle that contains even more information packed in to increase
- * SEO would be benefitial, though, it may overcomplicate and confuse people.
- * So, keeping it simple may be the best approach. Let's discuss tradeoffs.
- * 
- * THIS COMPONENT MUST REMAIN SERVER SIDE RENDERED
- */
-
 interface MakesProps {
     params: {
         deviceId: string

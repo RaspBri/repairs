@@ -1,3 +1,5 @@
+'use server';
+
 import { ServiceableParams } from "../util/ServiceableForm";
 
 const servicableZipcodes = [

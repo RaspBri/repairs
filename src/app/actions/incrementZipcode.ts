@@ -1,3 +1,5 @@
+'use server';
+
 import { db } from "@/db/db";
 
 export async function incrementZipcode(zipcode: string) {
