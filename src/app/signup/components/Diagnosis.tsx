@@ -2,14 +2,14 @@
 
 import { useState } from 'react';
 import { RadioGroup, Radio } from '@nextui-org/react';
-import { SignupForm } from '@/app/types';
+import { SignupForm, DiagnosisForm } from '@/app/types';
 
 export interface DiagnosisProps {
     formData: SignupForm;
 }
 
 export default function Diagnosis({ formData }: DiagnosisProps) {
-    const [data, setData] = useState(formData);
+    const [data, setData] = useState<DiagnosisForm>(formData.diagnosis);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setData({ ...data, [e.target.name]: e.target.value });

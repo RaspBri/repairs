@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Input, Select, SelectItem } from "@nextui-org/react";
 import { useFormState } from "react-dom";
 import { submitSignup } from "@/app/actions/submitSignup";
-import { SignupForm } from "@/app/types";
+import { SignupForm, ContactForm } from "@/app/types";
 
 const unitedStates = [
     "AB",
@@ -19,7 +19,7 @@ export interface ContactProps {
 }
 
 export default function Contact({ formData }: ContactProps) {
-    const [data, setData] = useState(formData.contact);
+    const [data, setData] = useState<ContactForm>(formData.contact);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
         setData({ ...data, [e.target.name]: e.target.value });

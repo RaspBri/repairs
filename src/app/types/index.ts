@@ -29,9 +29,9 @@ export type Model = {
  ******************************************************/
 
 export enum AppointmentFormState {
-    DIAGNOSIS,
-    SCHEDULE,
-    CONTACT
+    DIAGNOSIS = "diagnosis",
+    SCHEDULE = "schedule",
+    CONTACT = "contact"
 }
 
 export enum DeviceMakeModel {
@@ -40,7 +40,7 @@ export enum DeviceMakeModel {
     MODEL = "model"
 }
 
-export type KeyFormState = Diagnosis | Schedule | Contact;
+export type KeyFormState = DiagnosisForm | ScheduleForm | ContactForm;
 
 export type Question = {
     id: string;
@@ -53,16 +53,16 @@ export type Answer = {
     option: string;
 }
 
-export type Diagnosis = {
+export type DiagnosisForm = {
     device: string,
     manufacturer: string,
     model: string,
     questions: Question[],
 }
 
-export type Schedule = {}
+export type ScheduleForm = {}
 
-export type Contact = {
+export type ContactForm = {
     email: string;
     firstName: string;
     lastName: string;
@@ -75,7 +75,15 @@ export type Contact = {
 }
 
 export type SignupForm = {
-    diagnosis: Diagnosis;
-    schedule: Schedule;
-    contact: Contact;
+    diagnosis: DiagnosisForm;
+    schedule: ScheduleForm;
+    contact: ContactForm;
+}
+
+export type ServiceType = Services.VacuumTuneup | Services.VacuumCordChange | Services.VacuumRollerChange;
+
+enum Services {
+    VacuumTuneup,
+    VacuumCordChange,
+    VacuumRollerChange
 }
