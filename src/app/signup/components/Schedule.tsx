@@ -42,8 +42,6 @@ export default function Schedule({ formData }: ScheduleProps) {
         }
     };
 
-    
-
     return (
         <div>
             <div>
@@ -93,7 +91,7 @@ export default function Schedule({ formData }: ScheduleProps) {
                         label="Appointment Time" 
                         defaultValue={new Time(8, 0)}
                         minValue={new Time(8)}
-                        maxValue={new Time(16, 30)}
+                        maxValue={new Time(20)}
                     />
                 </p>
             </div>

@@ -7,6 +7,7 @@ export default async function Home() {
     <div className="text-center">
       
       <h1 className="text-7xl text-center m-auto my-8 tracking-tightest leading-tight">Mobile Repair</h1>
+      <h2 className="text-5xl text-center m-auto my-8 tracking-tightest leading-tight">We come to you!</h2>
 
       <h2 className="text-lg mb-10">
         Vacuum Cleaner -
