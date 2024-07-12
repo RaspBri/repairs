@@ -1,8 +1,7 @@
 'use client';
 
 import { useState } from "react";
-import {DateInput} from "@nextui-org/react";
-import {CalendarDate, parseDate, today, getLocalTimeZone} from "@internationalized/date";
+import {today, getLocalTimeZone, toCalendarDate, GregorianCalendar} from "@internationalized/date";
 import {TimeInput} from "@nextui-org/react";
 import {Time} from "@internationalized/date";
 import { SignupForm } from "@/app/types";
@@ -15,41 +14,71 @@ export interface ScheduleProps {
 export default function Schedule({ formData }: ScheduleProps) {
     const [data, setData] = useState(formData.schedule);
     const [dateInput, setDateInput] = useState();
+    const [selectedServiceButton, setSelectedServiceButton] = useState();
+    const [selectedTimeButton, setSelectedTimeButton] = useState();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setData({ ...data, [e.target.name]: e.target.value });
     };
 
+    const buttonService = [
+        {id: 1, state:"idle", buttonName: "Leave At Shop"},
+        {id: 3, state:"idle", buttonName: "Service At Location"},
+        {id: 5, state:"idle", buttonName: "Consultation"},
+    ];
+
+    const buttonTime = [
+        {id: 2, state:"idle", buttonName: "30 Minutes"},
+        {id: 4, state:"idle", buttonName: "45 Minutes"},
+        {id: 6, state:"idle", buttonName: "60 Minutes"}
+    ];
+
+    const handleColor = (row: { id: any; state: any; buttonName?: string; }) => {
+        if(row.id % 2 === 0) { // if even
+            setSelectedTimeButton(row.id);
+        }
+        else { // if odd
+            setSelectedServiceButton(row.id);
+        }
+    };
+
+    
+
     return (
         <div>
-            <h1 className="text-5xl py-3 underline decoration-amber-500">Book Me</h1>
-            <div className="flex space-x-4 pb-9">
-                <Button color="default" variant="bordered" radius="none">
-                    Career Check-In
-                </Button>  
-                <Button color="default" variant="bordered" radius="none">
-                    Strategy Session
-                </Button>  
-                <Button color="default" variant="bordered" radius="none">
-                    Consultation
-                </Button>  
+            <div>
+                <h1 className="text-5xl py-3 underline decoration-amber-500">Book Me</h1>
+                <div className="flex space-x-4 pb-9">
+                    {buttonService.map((list) => (
+                        <Button 
+                            key = {list.id}
+                            onClick={() => handleColor(list)} 
+                            color={list.id === selectedServiceButton ? "warning" : "default"} 
+                            variant="bordered" 
+                            radius="none"
+                        >
+                            {list.buttonName}
+                        </Button>  
+                    ))}   
+                </div>
             </div>
-            <h1 className="text-2xl mt-2">CHOOSE DURATION</h1>
-            <div className="">
-                <div>
-                    <div className="my-3 flex space-x-4">
-                        <Button size="sm" color="default" variant="bordered" radius="none">
-                            30 minutes
+            <div>
+                <h1 className="text-2xl mt-2">Appointment Duration</h1>
+                <div className="my-3 flex space-x-4">
+                    {buttonTime.map((list) => ( 
+                        <Button 
+                            size="sm" 
+                            key = {list.id}
+                            onClick={() => handleColor(list) } 
+                            color={list.id === selectedTimeButton ? "warning" : "default"}
+                            variant="bordered" 
+                            radius="none"
+                        >
+                            {list.buttonName}
                         </Button>  
-                        <Button size="sm" color="default" variant="bordered" radius="none">
-                            45 minutes
-                        </Button>  
-                        <Button size="sm" color="default" variant="bordered" radius="none">
-                            60 minutes
-                        </Button>  
-                    </div>
-                    
-                    <p>
+                    ))}  
+                </div>
+                <p>
                     <Calendar
                         className="mb-7"
                         aria-label="Date (Min Date Value)"
@@ -57,27 +86,17 @@ export default function Schedule({ formData }: ScheduleProps) {
                         minValue={today(getLocalTimeZone())}
                         color="warning"
                     />
-                        <DateInput 
-                            label={"Appointment date"} 
-                            isReadOnly
-                            className="max-w-xs mb-6"
-                            defaultValue={today(getLocalTimeZone())} 
-                            value={dateInput}
-                            placeholderValue={new CalendarDate(1995, 11, 6)} 
-                        />
-                        <TimeInput 
-                            isReadOnly 
-                            className="max-w-xs mb-6"
-                            label="Appointment Time" 
-                            defaultValue={new Time(12, 45)} 
-                        />
-                    </p>
-                </div>
-                <div>
-                    
-                </div>
+                    <TimeInput 
+                        isRequired 
+                        className="max-w-xs mb-6"
+                        labelPlacement="outside-left" 
+                        label="Appointment Time" 
+                        defaultValue={new Time(8, 0)}
+                        minValue={new Time(8)}
+                        maxValue={new Time(16, 30)}
+                    />
+                </p>
             </div>
-            
         </div>
     );
 }
